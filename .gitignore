@@ -72,6 +72,8 @@ local.properties
 output.json
 google-services.json
 
+apikey.properties
+
 misc.xml
 deploymentTargetDropDown.xml
 render.experimental.xml

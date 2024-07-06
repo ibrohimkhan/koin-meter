@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
             KoinMeterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
-                        name = "Ibrohim Aka!",
+                        name = BuildConfig.API_KEY,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -20,6 +22,14 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        // load the key from .properties file
+        val keystoreFile = project.rootProject.file("apikey.properties")
+        val properties = Properties()
+        properties.load(keystoreFile.inputStream())
+
+        val apiKey = properties.getProperty("API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", apiKey)
     }
 
     buildTypes {
@@ -40,6 +50,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
