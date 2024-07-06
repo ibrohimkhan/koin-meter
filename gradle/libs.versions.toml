@@ -8,7 +8,16 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
+fonts = "1.6.8"
+navigation = "2.7.7"
 lifecycleViewmodelCompose = "2.8.3"
+kotlinx-coroutines-android = "1.8.1"
+retrofit = "2.11.0"
+retrofit-logging = "4.12.0"
+moshi = "1.15.1"
+coil = "2.6.0"
+lottie = "6.4.1"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -23,8 +32,14 @@ androidx-lifecycle-viewmodel-compose = { group = "androidx.lifecycle", name = "l
 # Compose BOM
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 
+# Navigation
+navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
 # Material Design 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+# Fonts
+fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "fonts" }
 
 # Window size utils
 androidx-material3-window-size = { group = "androidx.compose.material3", name = "material3-window-size-class" }
@@ -35,6 +50,22 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 
 # Graphics (shape, imagebitmap, color...)
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
+
+# Kotlin Coroutines for Android
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+
+# Retrofit & Moshi
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+retrofit-moshi-converter = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+moshiCodeGen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+retrofit-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "retrofit-logging" }
+
+# Image Loader
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+# Lottie
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
