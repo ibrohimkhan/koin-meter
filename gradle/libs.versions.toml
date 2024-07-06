@@ -12,6 +12,7 @@ fonts = "1.6.8"
 navigation = "2.7.7"
 lifecycleViewmodelCompose = "2.8.3"
 kotlinx-coroutines-android = "1.8.1"
+koin-androidx-compose = "3.5.6"
 retrofit = "2.11.0"
 retrofit-logging = "4.12.0"
 moshi = "1.15.1"
@@ -53,6 +54,9 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 # Kotlin Coroutines for Android
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+
+# Koin for Android Compose
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
 
 # Retrofit & Moshi
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }

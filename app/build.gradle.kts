@@ -65,6 +65,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.material3.window.size)
 
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.koin.androidx.compose)
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.retrofit.moshi.converter)
@@ -73,8 +76,6 @@ dependencies {
 
     implementation(libs.coil)
     implementation(libs.lottie.compose)
-
-    implementation(libs.kotlinx.coroutines.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
