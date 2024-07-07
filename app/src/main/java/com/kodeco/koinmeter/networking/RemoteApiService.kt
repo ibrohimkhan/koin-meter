@@ -6,10 +6,26 @@ import com.kodeco.koinmeter.networking.dto.CoinMarketDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RemoteApiService {
-    @GET("coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&price_change_percentage={percentage_timeframe}")
-    suspend fun getTopCoins(@Path("percentage_timeframe") percentageTimeframe: String): Response<List<CoinDto>>
+    @GET("coins/markets")
+    suspend fun getTopCoins(
+        @Query("vs_currency")
+        vsCurrency: String = "usd",
+
+        @Query("order")
+        order: String = "market_cap_desc",
+
+        @Query("per_page")
+        perPage: Int = 250,
+
+        @Query("page")
+        page: Int = 1,
+
+        @Query("price_change_percentage")
+        percentageTimeframe: String
+    ): Response<List<CoinDto>>
 
     @GET("coins/{coin_id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false")
     suspend fun getCoinDetails(@Path("coin_id") coinId: String): Response<CoinMarketDto>
