@@ -17,10 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
 import com.kodeco.koinmeter.model.TimeFrame
-import com.kodeco.koinmeter.networking.buildApiService
+import com.kodeco.koinmeter.networking.RemoteApiService
 import com.kodeco.koinmeter.networking.dto.CoinDto
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +30,11 @@ class MainActivity : ComponentActivity() {
 
         var coins by mutableStateOf(emptyList<CoinDto>())
 
-        val apiService = buildApiService()
+        val apiService: RemoteApiService by inject()
+
         lifecycleScope.launch {
             val response = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value)
+
             if (response.isSuccessful) {
                 coins = response.body() ?: emptyList()
             }
@@ -43,7 +46,7 @@ class MainActivity : ComponentActivity() {
                     Box(modifier = Modifier.padding(innerPadding)) {
                         LazyColumn {
                             items(coins) { coin ->
-                                Text(text = coin.name)
+                                Text(text = coin.name ?: "N/A")
                             }
                         }
                     }

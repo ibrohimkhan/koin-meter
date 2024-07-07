@@ -1,5 +1,5 @@
 package com.kodeco.koinmeter.networking.dto.coin.market
 
-data class AllTimeLow(
-    val usd: Double
+data class AllTimeHighDto(
+    val usd: Double? = null
 )

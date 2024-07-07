@@ -27,9 +27,42 @@ interface RemoteApiService {
         percentageTimeframe: String
     ): Response<List<CoinDto>>
 
-    @GET("coins/{coin_id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false")
-    suspend fun getCoinDetails(@Path("coin_id") coinId: String): Response<CoinMarketDto>
+    @GET("coins/{coin_id}")
+    suspend fun getCoinDetails(
+        @Query("localization")
+        localization: Boolean = false,
 
-    @GET("coins/{coin_id}/market_chart?vs_currency=usd&days={days}&precision=2")
-    suspend fun getCoinChartData(@Path("coin_id") coinId: String, @Path("days") days: Int): Response<List<CoinChartDto>>
+        @Query("tickers")
+        tickers: Boolean = false,
+
+        @Query("market_data")
+        marketData: Boolean = true,
+
+        @Query("community_data")
+        communityData: Boolean = false,
+
+        @Query("developer_data")
+        developerData: Boolean = false,
+
+        @Query("sparkline")
+        sparkline: Boolean = false,
+
+        @Path("coin_id")
+        coinId: String
+    ): Response<CoinMarketDto>
+
+    @GET("coins/{coin_id}/market_chart")
+    suspend fun getCoinChartData(
+        @Path("coin_id")
+        coinId: String,
+
+        @Query("vs_currency")
+        vsCurrency: String = "usd",
+
+        @Query("days")
+        days: Int,
+
+        @Query("precision")
+        precision: Int = 2
+    ): Response<List<CoinChartDto>>
 }
