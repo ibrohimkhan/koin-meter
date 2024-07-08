@@ -34,7 +34,7 @@ data class MarketDataDto(
     @Json(name = "price_change_percentage_30d") val priceChangePercentage30d: Double? = null,
     @Json(name = "price_change_percentage_200d") val priceChangePercentage200d: Double? = null,
     @Json(name = "price_change_percentage_1y") val priceChangePercentage1y: Double? = null,
-    @Json(name = "market_cap_change_24h") val marketCapChange24h: Long? = null,
+    @Json(name = "market_cap_change_24h") val marketCapChange24h: Double? = null,
     @Json(name = "market_cap_change_percentage_24h") val marketCapChangePercentage24h: Double? = null,
     @Json(name = "total_supply") val totalSupply: Double? = null,
     @Json(name = "max_supply") val maxSupply: Double? = null,

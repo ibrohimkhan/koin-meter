@@ -1,8 +1,8 @@
 package com.kodeco.koinmeter.networking
 
 import com.kodeco.koinmeter.model.Coin
-import com.kodeco.koinmeter.networking.dto.CoinChartDto
-import com.kodeco.koinmeter.networking.dto.CoinMarketDto
+import com.kodeco.koinmeter.model.CoinMarket
+import com.kodeco.koinmeter.model.CoinMarketChartPrice
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -29,6 +29,9 @@ interface RemoteApiService {
 
     @GET("coins/{coin_id}")
     suspend fun getCoinDetails(
+        @Path("coin_id")
+        coinId: String,
+
         @Query("localization")
         localization: Boolean = false,
 
@@ -46,10 +49,7 @@ interface RemoteApiService {
 
         @Query("sparkline")
         sparkline: Boolean = false,
-
-        @Path("coin_id")
-        coinId: String
-    ): Response<CoinMarketDto>
+    ): Response<CoinMarket>
 
     @GET("coins/{coin_id}/market_chart")
     suspend fun getCoinChartData(
@@ -64,5 +64,5 @@ interface RemoteApiService {
 
         @Query("precision")
         precision: Int = 2
-    ): Response<List<CoinChartDto>>
+    ): Response<List<CoinMarketChartPrice>>
 }

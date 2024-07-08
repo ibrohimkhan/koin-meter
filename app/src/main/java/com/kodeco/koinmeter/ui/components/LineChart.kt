@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kodeco.koinmeter.model.MarketChartPrice
+import com.kodeco.koinmeter.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import java.time.LocalDateTime
 import kotlin.math.round
@@ -28,7 +28,7 @@ import kotlin.math.roundToInt
 
 @Composable
 fun LineChart(
-    marketData: List<MarketChartPrice>,
+    marketData: List<CoinMarketChartPrice>,
     graphColor: Color,
     modifier: Modifier = Modifier,
 ) {
@@ -149,16 +149,16 @@ fun LineChartPreview() {
     KoinMeterTheme {
         LineChart(
             marketData = listOf(
-                MarketChartPrice(LocalDateTime.now(), 113.50),
-                MarketChartPrice(LocalDateTime.now(), 150.0),
-                MarketChartPrice(LocalDateTime.now(), 150.0),
-                MarketChartPrice(LocalDateTime.now(), 150.0),
-                MarketChartPrice(LocalDateTime.now(), 213.50),
-                MarketChartPrice(LocalDateTime.now(), 313.50),
-                MarketChartPrice(LocalDateTime.now(), 113.50),
-                MarketChartPrice(LocalDateTime.now(), 150.50),
-                MarketChartPrice(LocalDateTime.now(), 170.50),
-                MarketChartPrice(LocalDateTime.now(), 213.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 113.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 150.0),
+                CoinMarketChartPrice(LocalDateTime.now(), 150.0),
+                CoinMarketChartPrice(LocalDateTime.now(), 150.0),
+                CoinMarketChartPrice(LocalDateTime.now(), 213.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 313.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 113.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 150.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 170.50),
+                CoinMarketChartPrice(LocalDateTime.now(), 213.50),
             ),
             graphColor = Color.Red,
             modifier = Modifier

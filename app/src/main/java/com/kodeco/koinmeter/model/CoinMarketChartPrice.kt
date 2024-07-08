@@ -2,7 +2,7 @@ package com.kodeco.koinmeter.model
 
 import java.time.LocalDateTime
 
-data class MarketChartPrice(
+data class CoinMarketChartPrice(
     val date: LocalDateTime,
     val price: Double
 )
