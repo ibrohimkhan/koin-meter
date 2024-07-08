@@ -1,7 +1,7 @@
 package com.kodeco.koinmeter.networking
 
+import com.kodeco.koinmeter.model.Coin
 import com.kodeco.koinmeter.networking.dto.CoinChartDto
-import com.kodeco.koinmeter.networking.dto.CoinDto
 import com.kodeco.koinmeter.networking.dto.CoinMarketDto
 import retrofit2.Response
 import retrofit2.http.GET
@@ -25,7 +25,7 @@ interface RemoteApiService {
 
         @Query("price_change_percentage")
         percentageTimeframe: String
-    ): Response<List<CoinDto>>
+    ): Response<List<Coin>>
 
     @GET("coins/{coin_id}")
     suspend fun getCoinDetails(

@@ -16,9 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.lifecycleScope
+import com.kodeco.koinmeter.model.Coin
 import com.kodeco.koinmeter.model.TimeFrame
 import com.kodeco.koinmeter.networking.RemoteApiService
-import com.kodeco.koinmeter.networking.dto.CoinDto
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        var coins by mutableStateOf(emptyList<CoinDto>())
+        var coins by mutableStateOf(emptyList<Coin>())
 
         val apiService: RemoteApiService by inject()
 

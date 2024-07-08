@@ -1,6 +1,7 @@
 package com.kodeco.koinmeter.networking
 
 import com.kodeco.koinmeter.BuildConfig
+import com.kodeco.koinmeter.networking.adapters.CoinAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -9,8 +10,12 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-fun provideMoshi(): Moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
+fun provideMoshi(
+    kotlinJsonAdapterFactory: KotlinJsonAdapterFactory,
+    coinAdapter: CoinAdapter,
+): Moshi = Moshi.Builder()
+    .add(kotlinJsonAdapterFactory)
+    .add(coinAdapter)
     .build()
 
 fun provideHttpClient(): OkHttpClient = OkHttpClient
@@ -37,7 +42,9 @@ fun provideApiService(retrofit: Retrofit): RemoteApiService =
     retrofit.create(RemoteApiService::class.java)
 
 val networkingModule = module {
-    single { provideMoshi() }
+    single { KotlinJsonAdapterFactory() }
+    single { CoinAdapter() }
+    single { provideMoshi(get(), get()) }
     single { provideHttpClient() }
     single { provideRetrofit(get(), get()) }
     single { provideApiService(get()) }
