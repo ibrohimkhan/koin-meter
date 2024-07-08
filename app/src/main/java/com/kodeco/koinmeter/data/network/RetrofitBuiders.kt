@@ -2,7 +2,6 @@ package com.kodeco.koinmeter.data.network
 
 import com.kodeco.koinmeter.BuildConfig
 import com.kodeco.koinmeter.data.network.adapters.CoinAdapter
-import com.kodeco.koinmeter.data.network.adapters.CoinMarketAdapter
 import com.kodeco.koinmeter.data.network.adapters.CoinMarketChartPriceAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -14,12 +13,10 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 fun provideMoshi(
     coinAdapter: CoinAdapter,
-    coinMarketAdapter: CoinMarketAdapter,
     coinMarketChartPriceAdapter: CoinMarketChartPriceAdapter,
     kotlinJsonAdapterFactory: KotlinJsonAdapterFactory,
 ): Moshi = Moshi.Builder()
     .add(coinAdapter)
-    .add(coinMarketAdapter)
     .add(coinMarketChartPriceAdapter)
     .add(kotlinJsonAdapterFactory)
     .build()
@@ -44,15 +41,14 @@ fun provideRetrofit(httpClient: OkHttpClient, moshi: Moshi): Retrofit = Retrofit
     .addConverterFactory(MoshiConverterFactory.create(moshi))
     .build()
 
-fun provideApiService(retrofit: Retrofit): com.kodeco.koinmeter.data.network.RemoteApiService =
-    retrofit.create(com.kodeco.koinmeter.data.network.RemoteApiService::class.java)
+fun provideApiService(retrofit: Retrofit): RemoteApiService =
+    retrofit.create(RemoteApiService::class.java)
 
 val networkingModule = module {
     single { CoinAdapter() }
-    single { CoinMarketAdapter() }
     single { CoinMarketChartPriceAdapter() }
     single { KotlinJsonAdapterFactory() }
-    single { provideMoshi(get(), get(), get(), get()) }
+    single { provideMoshi(get(), get(), get()) }
     single { provideHttpClient() }
     single { provideRetrofit(get(), get()) }
     single { provideApiService(get()) }

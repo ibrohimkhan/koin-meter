@@ -4,26 +4,27 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.kodeco.koinmeter.data.model.Coin
-import com.kodeco.koinmeter.data.model.CoinMarket
-import com.kodeco.koinmeter.data.model.CoinMarketChartPrice
-import com.kodeco.koinmeter.data.model.TimeFrame
+import com.kodeco.koinmeter.data.network.RemoteApiService
+import com.kodeco.koinmeter.domain.features.topcoins.GetTopCoinsUseCase
+import com.kodeco.koinmeter.domain.model.Coin
+import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.domain.model.TimeFrame
 import com.kodeco.koinmeter.ui.components.LineChart
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
@@ -35,23 +36,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         var coins by mutableStateOf(emptyList<Coin>())
-        var coinDetails by mutableStateOf<CoinMarket?>(null)
         var chartData by mutableStateOf(emptyList<CoinMarketChartPrice>())
 
-        val apiService: com.kodeco.koinmeter.data.network.RemoteApiService by inject()
+        val apiService: RemoteApiService by inject()
+        val topCoinUseCase: GetTopCoinsUseCase by inject()
 
         lifecycleScope.launch {
-            val coinListResponse = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value.strValue)
-            val coinDetailsResponse = apiService.getCoinMarket(coinId = "bitcoin")
+            coins = topCoinUseCase(timeframe = TimeFrame.Day.value.strValue)
             val chartDataResponse = apiService.getCoinMarketChartData(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
-
-            if (coinListResponse.isSuccessful) {
-                coins = coinListResponse.body() ?: emptyList()
-            }
-
-            if (coinDetailsResponse.isSuccessful) {
-                coinDetails = coinDetailsResponse.body()
-            }
 
             if (chartDataResponse.isSuccessful) {
                 chartData = chartDataResponse.body() ?: emptyList()
@@ -61,57 +53,27 @@ class MainActivity : ComponentActivity() {
         setContent {
             KoinMeterTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Column(
+                    Box(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(innerPadding)
                     ) {
-                        Column {
-                            coinDetails?.let {
-                                Text(text = it.id, modifier = Modifier.padding(8.dp))
-                                Text(text = it.name ?: "N/A", modifier = Modifier.padding(8.dp))
-                                Text(text = it.symbol ?: "N/A", modifier = Modifier.padding(8.dp))
-                                it.image?.small?.let { img ->
-                                    AsyncImage(
-                                        model = ImageRequest.Builder(LocalContext.current)
-                                            .data(img)
-                                            .crossfade(true)
-                                            .build(),
-                                        contentDescription = null,
-                                        modifier = Modifier
-                                            .size(100.dp)
-                                            .padding(8.dp),
-                                        contentScale = ContentScale.FillBounds
-                                    )
-                                }
-                                Text(
-                                    text = it.currentPrice?.toString() ?: "N/A",
-                                    modifier = Modifier.padding(8.dp)
+                        LazyColumn {
+                            item {
+                                LineChart(
+                                    marketData = chartData,
+                                    graphColor = Color.Red,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(300.dp)
+                                        .padding(16.dp),
                                 )
                             }
 
-                            LineChart(
-                                marketData = chartData,
-                                graphColor = androidx.compose.ui.graphics.Color.Red,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(16.dp),
-                            )
-//                            chartData.firstOrNull()?.let { item ->
-//                                Text(
-//                                    text = "${item.date} - ${item.price} usd",
-//                                    modifier = Modifier.padding(8.dp)
-//                                )
-//                            }
+                            items(coins) {
+                                Text(text = it.name ?: "N/A", modifier = Modifier.padding(8.dp))
+                            }
                         }
-
-//                        Spacer(modifier = Modifier.height(8.dp))
-//
-//                        LazyColumn {
-//                            items(coins) {
-//                                Text(text = it.name ?: "N/A", modifier = Modifier.padding(8.dp))
-//                            }
-//                        }
                     }
                 }
             }

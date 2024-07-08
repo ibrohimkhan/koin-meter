@@ -1,8 +1,7 @@
 package com.kodeco.koinmeter.data.network
 
-import com.kodeco.koinmeter.data.model.Coin
-import com.kodeco.koinmeter.data.model.CoinMarket
-import com.kodeco.koinmeter.data.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.domain.model.Coin
+import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,30 +25,6 @@ interface RemoteApiService {
         @Query("price_change_percentage")
         percentageTimeframe: String
     ): Response<List<Coin>>
-
-    @GET("coins/{coin_id}")
-    suspend fun getCoinMarket(
-        @Path("coin_id")
-        coinId: String,
-
-        @Query("localization")
-        localization: Boolean = false,
-
-        @Query("tickers")
-        tickers: Boolean = false,
-
-        @Query("market_data")
-        marketData: Boolean = true,
-
-        @Query("community_data")
-        communityData: Boolean = false,
-
-        @Query("developer_data")
-        developerData: Boolean = false,
-
-        @Query("sparkline")
-        sparkline: Boolean = false,
-    ): Response<CoinMarket>
 
     @GET("coins/{coin_id}/market_chart")
     suspend fun getCoinMarketChartData(

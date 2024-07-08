@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.data.model
+package com.kodeco.koinmeter.domain.model
 
 data class Coin(
     val id: String,

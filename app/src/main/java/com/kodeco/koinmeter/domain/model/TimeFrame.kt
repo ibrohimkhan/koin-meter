@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.data.model
+package com.kodeco.koinmeter.domain.model
 
 enum class TimeFrame(val value: Frame) {
     Day(Frame("24h", 1)),
