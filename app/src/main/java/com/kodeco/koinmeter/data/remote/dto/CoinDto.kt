@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.networking.dto
+package com.kodeco.koinmeter.data.remote.dto
 
 import com.squareup.moshi.Json
 

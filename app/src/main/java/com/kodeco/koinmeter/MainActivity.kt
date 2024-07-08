@@ -5,13 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.getValue
@@ -28,7 +24,6 @@ import com.kodeco.koinmeter.model.Coin
 import com.kodeco.koinmeter.model.CoinMarket
 import com.kodeco.koinmeter.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.model.TimeFrame
-import com.kodeco.koinmeter.networking.RemoteApiService
 import com.kodeco.koinmeter.ui.components.LineChart
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
@@ -43,7 +38,7 @@ class MainActivity : ComponentActivity() {
         var coinDetails by mutableStateOf<CoinMarket?>(null)
         var chartData by mutableStateOf(emptyList<CoinMarketChartPrice>())
 
-        val apiService: RemoteApiService by inject()
+        val apiService: com.kodeco.koinmeter.data.remote.RemoteApiService by inject()
 
         lifecycleScope.launch {
             val coinListResponse = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value)

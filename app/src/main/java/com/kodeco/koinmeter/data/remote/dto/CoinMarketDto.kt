@@ -1,8 +1,8 @@
-package com.kodeco.koinmeter.networking.dto
+package com.kodeco.koinmeter.data.remote.dto
 
-import com.kodeco.koinmeter.networking.dto.coin.DescriptionDto
-import com.kodeco.koinmeter.networking.dto.coin.ImageDto
-import com.kodeco.koinmeter.networking.dto.coin.MarketDataDto
+import com.kodeco.koinmeter.data.remote.dto.coin.DescriptionDto
+import com.kodeco.koinmeter.data.remote.dto.coin.ImageDto
+import com.kodeco.koinmeter.data.remote.dto.coin.MarketDataDto
 import com.squareup.moshi.Json
 
 data class CoinMarketDto(

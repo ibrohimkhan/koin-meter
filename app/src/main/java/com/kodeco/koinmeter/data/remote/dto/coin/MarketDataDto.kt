@@ -1,17 +1,17 @@
-package com.kodeco.koinmeter.networking.dto.coin
+package com.kodeco.koinmeter.data.remote.dto.coin
 
-import com.kodeco.koinmeter.networking.dto.coin.market.AllTimeHighDto
-import com.kodeco.koinmeter.networking.dto.coin.market.AllTimeLowDto
-import com.kodeco.koinmeter.networking.dto.coin.market.AthChangePercentageDto
-import com.kodeco.koinmeter.networking.dto.coin.market.AthDateDto
-import com.kodeco.koinmeter.networking.dto.coin.market.AtlChangePercentageDto
-import com.kodeco.koinmeter.networking.dto.coin.market.AtlDateDto
-import com.kodeco.koinmeter.networking.dto.coin.market.CurrentPriceDto
-import com.kodeco.koinmeter.networking.dto.coin.market.FullyDilutedValuationDto
-import com.kodeco.koinmeter.networking.dto.coin.market.High24HDto
-import com.kodeco.koinmeter.networking.dto.coin.market.Low24HDto
-import com.kodeco.koinmeter.networking.dto.coin.market.MarketCapDto
-import com.kodeco.koinmeter.networking.dto.coin.market.TotalVolumeDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AllTimeHighDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AllTimeLowDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AthChangePercentageDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AthDateDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AtlChangePercentageDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.AtlDateDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.CurrentPriceDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.FullyDilutedValuationDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.High24HDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.Low24HDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.MarketCapDto
+import com.kodeco.koinmeter.data.remote.dto.coin.market.TotalVolumeDto
 import com.squareup.moshi.Json
 
 data class MarketDataDto(

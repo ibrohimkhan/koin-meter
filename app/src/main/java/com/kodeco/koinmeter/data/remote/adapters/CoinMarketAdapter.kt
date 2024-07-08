@@ -1,8 +1,8 @@
-package com.kodeco.koinmeter.networking.adapters
+package com.kodeco.koinmeter.data.remote.adapters
 
 import com.kodeco.koinmeter.model.CoinMarket
 import com.kodeco.koinmeter.model.Image
-import com.kodeco.koinmeter.networking.dto.CoinMarketDto
+import com.kodeco.koinmeter.data.remote.dto.CoinMarketDto
 import com.squareup.moshi.FromJson
 
 class CoinMarketAdapter {

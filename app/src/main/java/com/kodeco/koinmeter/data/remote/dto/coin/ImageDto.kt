@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.networking.dto.coin
+package com.kodeco.koinmeter.data.remote.dto.coin
 
 data class ImageDto(
     val thumb: String? = null,

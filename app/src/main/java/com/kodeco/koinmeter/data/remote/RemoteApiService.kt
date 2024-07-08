@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.networking
+package com.kodeco.koinmeter.data.remote
 
 import com.kodeco.koinmeter.model.Coin
 import com.kodeco.koinmeter.model.CoinMarket

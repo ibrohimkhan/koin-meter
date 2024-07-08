@@ -1,7 +1,7 @@
-package com.kodeco.koinmeter.networking.adapters
+package com.kodeco.koinmeter.data.remote.adapters
 
 import com.kodeco.koinmeter.model.CoinMarketChartPrice
-import com.kodeco.koinmeter.networking.dto.CoinChartDto
+import com.kodeco.koinmeter.data.remote.dto.CoinChartDto
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import java.time.Instant
