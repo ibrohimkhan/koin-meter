@@ -1,6 +1,6 @@
 package com.kodeco.koinmeter.data.remote.adapters
 
-import com.kodeco.koinmeter.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.ui.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.data.remote.dto.CoinChartDto
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson

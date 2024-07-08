@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.model
+package com.kodeco.koinmeter.ui.model
 
 import java.time.LocalDateTime
 

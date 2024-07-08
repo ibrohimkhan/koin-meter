@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.model
+package com.kodeco.koinmeter.ui.model
 
 data class Image(
     val thumb: String? = null,

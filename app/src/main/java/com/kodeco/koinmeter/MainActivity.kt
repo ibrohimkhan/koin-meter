@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.kodeco.koinmeter.model.Coin
-import com.kodeco.koinmeter.model.CoinMarket
-import com.kodeco.koinmeter.model.CoinMarketChartPrice
-import com.kodeco.koinmeter.model.TimeFrame
+import com.kodeco.koinmeter.ui.model.Coin
+import com.kodeco.koinmeter.ui.model.CoinMarket
+import com.kodeco.koinmeter.ui.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.ui.model.TimeFrame
 import com.kodeco.koinmeter.ui.components.LineChart
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch

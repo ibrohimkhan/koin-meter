@@ -1,8 +1,8 @@
 package com.kodeco.koinmeter.data.remote
 
-import com.kodeco.koinmeter.model.Coin
-import com.kodeco.koinmeter.model.CoinMarket
-import com.kodeco.koinmeter.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.ui.model.Coin
+import com.kodeco.koinmeter.ui.model.CoinMarket
+import com.kodeco.koinmeter.ui.model.CoinMarketChartPrice
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
