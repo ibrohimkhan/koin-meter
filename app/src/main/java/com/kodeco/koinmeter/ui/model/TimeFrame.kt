@@ -1,9 +1,14 @@
 package com.kodeco.koinmeter.ui.model
 
-enum class TimeFrame(val value: String) {
-    Day("24h"),
-    Week("7d"),
-    Month("30d"),
-    SixMonth("200d"),
-    Year("1y")
+enum class TimeFrame(val value: Frame) {
+    Day(Frame("24h", 1)),
+    Week(Frame("7d", 7)),
+    Month(Frame("30d", 30)),
+    SixMonth(Frame("200d", 200)),
+    Year(Frame("1y", 365))
 }
+
+data class Frame(
+    val strValue: String,
+    val intValue: Int
+)

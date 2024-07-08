@@ -41,9 +41,9 @@ class MainActivity : ComponentActivity() {
         val apiService: com.kodeco.koinmeter.data.remote.RemoteApiService by inject()
 
         lifecycleScope.launch {
-            val coinListResponse = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value)
+            val coinListResponse = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value.strValue)
             val coinDetailsResponse = apiService.getCoinDetails(coinId = "bitcoin")
-            val chartDataResponse = apiService.getCoinChartData(coinId = "bitcoin", days = 300)
+            val chartDataResponse = apiService.getCoinChartData(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
 
             if (coinListResponse.isSuccessful) {
                 coins = coinListResponse.body() ?: emptyList()
