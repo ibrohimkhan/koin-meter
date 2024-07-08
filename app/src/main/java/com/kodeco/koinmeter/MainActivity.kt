@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.kodeco.koinmeter.ui.model.Coin
-import com.kodeco.koinmeter.ui.model.CoinMarket
-import com.kodeco.koinmeter.ui.model.CoinMarketChartPrice
-import com.kodeco.koinmeter.ui.model.TimeFrame
+import com.kodeco.koinmeter.data.model.Coin
+import com.kodeco.koinmeter.data.model.CoinMarket
+import com.kodeco.koinmeter.data.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.data.model.TimeFrame
 import com.kodeco.koinmeter.ui.components.LineChart
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
@@ -38,12 +38,12 @@ class MainActivity : ComponentActivity() {
         var coinDetails by mutableStateOf<CoinMarket?>(null)
         var chartData by mutableStateOf(emptyList<CoinMarketChartPrice>())
 
-        val apiService: com.kodeco.koinmeter.data.remote.RemoteApiService by inject()
+        val apiService: com.kodeco.koinmeter.data.network.RemoteApiService by inject()
 
         lifecycleScope.launch {
             val coinListResponse = apiService.getTopCoins(percentageTimeframe = TimeFrame.Day.value.strValue)
-            val coinDetailsResponse = apiService.getCoinDetails(coinId = "bitcoin")
-            val chartDataResponse = apiService.getCoinChartData(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
+            val coinDetailsResponse = apiService.getCoinMarket(coinId = "bitcoin")
+            val chartDataResponse = apiService.getCoinMarketChartData(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
 
             if (coinListResponse.isSuccessful) {
                 coins = coinListResponse.body() ?: emptyList()

@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kodeco.koinmeter.ui.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.data.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
 import java.time.LocalDateTime
 import kotlin.math.round
