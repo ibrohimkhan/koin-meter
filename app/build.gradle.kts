@@ -81,6 +81,12 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.koin.androidx.compose)
 
+    implementation(libs.room)
+    ksp(libs.roomCompiler)
+    implementation(libs.roomKtx)
+
+    implementation(libs.datastore.preferences)
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
     implementation(libs.retrofit.moshi.converter)
@@ -91,6 +97,8 @@ dependencies {
     implementation(libs.lottie.compose)
 
     testImplementation(libs.junit)
+    testImplementation(libs.roomTesting)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
