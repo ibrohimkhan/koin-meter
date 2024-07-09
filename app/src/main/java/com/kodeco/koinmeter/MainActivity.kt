@@ -20,13 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.kodeco.koinmeter.data.network.RemoteApiService
-import com.kodeco.koinmeter.domain.features.topcoins.GetTopCoinsUseCase
+import com.kodeco.koinmeter.data.remote.RemoteApiService
+import com.kodeco.koinmeter.domain.usecase.topcoins.GetTopCoinsUseCase
 import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.domain.model.TimeFrame
-import com.kodeco.koinmeter.ui.components.LineChart
-import com.kodeco.koinmeter.ui.theme.KoinMeterTheme
+import com.kodeco.koinmeter.presentation.components.LineChart
+import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
