@@ -43,12 +43,19 @@ class TopCoinsRepositoryImpl(
 
     override fun getFavoriteCoins(): Flow<List<Coin>> = flow {
         localDataSource.getFavoriteCoins().collect { coins ->
-            if (coins.isNullOrEmpty()) emit(emptyList())
+            if (coins.isNullOrEmpty()) emit(cachedTopCoins.filter { it.isFavorite })
             else emit(DataMappers.coinEntityToDomain(coins))
         }
     }
 
     override suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean) {
         localDataSource.updateFavoriteStatus(coinId, isFavorite)
+        updateCachedTopCoins(coinId, isFavorite)
+    }
+
+    private fun updateCachedTopCoins(coinId: String, isFavorite: Boolean) {
+        cachedTopCoins.find { it.id == coinId }?.copy(isFavorite = isFavorite)?.let { coin ->
+            cachedTopCoins = cachedTopCoins.filter { it.id != coinId } + coin
+        }
     }
 }
