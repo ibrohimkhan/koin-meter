@@ -40,4 +40,15 @@ class TopCoinsRepositoryImpl(
         if (entity != null) emit(DataMappers.coinEntityToDomain(entity))
         else emit(cachedTopCoins.find { it.id == coinId })
     }
+
+    override fun getFavoriteCoins(): Flow<List<Coin>> = flow {
+        localDataSource.getFavoriteCoins().collect { coins ->
+            if (coins.isNullOrEmpty()) emit(emptyList())
+            else emit(DataMappers.coinEntityToDomain(coins))
+        }
+    }
+
+    override suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean) {
+        localDataSource.updateFavoriteStatus(coinId, isFavorite)
+    }
 }

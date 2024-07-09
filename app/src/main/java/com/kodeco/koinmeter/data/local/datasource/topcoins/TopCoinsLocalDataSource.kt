@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 interface TopCoinsLocalDataSource {
     fun getAllCoins(): Flow<List<CoinEntity>>
 
+    fun getFavoriteCoins(): Flow<List<CoinEntity>?>
+
     suspend fun getCoinById(coinId: String): CoinEntity?
 
     suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean)

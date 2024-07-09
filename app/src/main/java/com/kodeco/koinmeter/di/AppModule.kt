@@ -25,6 +25,7 @@ import com.kodeco.koinmeter.domain.usecase.topcoins.GetCoinUseCase
 import com.kodeco.koinmeter.domain.usecase.topcoins.GetTopCoinsUseCase
 import com.kodeco.koinmeter.domain.repository.TopCoinsRepository
 import com.kodeco.koinmeter.domain.usecase.coinmarketchart.GetCoinMarketChartUseCase
+import com.kodeco.koinmeter.domain.usecase.favoritecoins.GetFavoriteCoinsUseCase
 import com.kodeco.koinmeter.presentation.screens.topcoins.TopCoinsViewModel
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -67,4 +68,8 @@ val coinMarketChartModule = module {
     single<CoinMarketChartRepository> { CoinMarketChartRepositoryImpl(get(), get()) }
 
     factory { GetCoinMarketChartUseCase(get()) }
+}
+
+val favoriteCoinsModule = module {
+    factory { GetFavoriteCoinsUseCase(get()) }
 }
