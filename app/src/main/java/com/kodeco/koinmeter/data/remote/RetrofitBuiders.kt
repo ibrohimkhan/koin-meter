@@ -7,7 +7,6 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -43,13 +42,3 @@ fun provideRetrofit(httpClient: OkHttpClient, moshi: Moshi): Retrofit = Retrofit
 
 fun provideApiService(retrofit: Retrofit): RemoteApiService =
     retrofit.create(RemoteApiService::class.java)
-
-val networkingModule = module {
-    single { CoinAdapter() }
-    single { CoinMarketChartPriceAdapter() }
-    single { KotlinJsonAdapterFactory() }
-    single { provideMoshi(get(), get(), get()) }
-    single { provideHttpClient() }
-    single { provideRetrofit(get(), get()) }
-    single { provideApiService(get()) }
-}

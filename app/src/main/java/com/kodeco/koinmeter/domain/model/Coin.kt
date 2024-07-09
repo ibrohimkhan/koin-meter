@@ -28,5 +28,6 @@ data class Coin(
     val priceChangePercentage7dInCurrency: Double?,
     val priceChangePercentage30dInCurrency: Double?,
     val priceChangePercentage200dInCurrency: Double?,
-    val priceChangePercentage1yInCurrency: Double?
+    val priceChangePercentage1yInCurrency: Double?,
+    val isFavorite: Boolean
 )

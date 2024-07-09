@@ -35,7 +35,8 @@ class CoinAdapter {
             priceChangePercentage7dInCurrency = coin.priceChangePercentage7dInCurrency,
             priceChangePercentage30dInCurrency = coin.priceChangePercentage30dInCurrency,
             priceChangePercentage200dInCurrency = coin.priceChangePercentage200dInCurrency,
-            priceChangePercentage1yInCurrency = coin.priceChangePercentage1yInCurrency
+            priceChangePercentage1yInCurrency = coin.priceChangePercentage1yInCurrency,
+            isFavorite = false
         )
     }
 }
