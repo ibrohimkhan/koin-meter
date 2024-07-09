@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         val coinMarketChartUseCase: GetCoinMarketChartUseCase by inject()
 
         lifecycleScope.launch {
-            chartData = coinMarketChartUseCase(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
+            chartData = coinMarketChartUseCase(coinId = "bitcoin", days = TimeFrame.Year.value.days)
         }
 
         setContent {
@@ -52,7 +52,8 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding)
                     ) {
-                        val coins by topCoinUseCase(timeframe = TimeFrame.Day.value.strValue).collectAsState(initial = emptyList())
+                        val coins by topCoinUseCase(timeframe = TimeFrame.Day.value.range)
+                            .collectAsState(initial = emptyList())
 
                         LazyColumn {
                             item {

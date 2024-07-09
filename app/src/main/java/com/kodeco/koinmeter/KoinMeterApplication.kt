@@ -2,6 +2,7 @@ package com.kodeco.koinmeter
 
 import android.app.Application
 import com.kodeco.koinmeter.di.coinMarketChartModule
+import com.kodeco.koinmeter.di.dataStorePrefsModule
 import com.kodeco.koinmeter.di.databaseModule
 import com.kodeco.koinmeter.di.favoriteCoinsModule
 import com.kodeco.koinmeter.di.networkingModule
@@ -18,6 +19,7 @@ class KoinMeterApplication : Application() {
             modules(
                 networkingModule,
                 databaseModule,
+                dataStorePrefsModule,
                 topCoinModule,
                 coinMarketChartModule,
                 favoriteCoinsModule

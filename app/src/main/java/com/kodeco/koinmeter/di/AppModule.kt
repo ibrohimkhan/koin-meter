@@ -7,6 +7,8 @@ import com.kodeco.koinmeter.data.local.datasource.topcoins.TopCoinsLocalDataSour
 import com.kodeco.koinmeter.data.local.provideCoinDao
 import com.kodeco.koinmeter.data.local.provideCoinMarketChartDao
 import com.kodeco.koinmeter.data.local.provideDatabase
+import com.kodeco.koinmeter.data.prefs.TimeFramePrefs
+import com.kodeco.koinmeter.data.prefs.TimeFramePrefsImpl
 import com.kodeco.koinmeter.data.remote.adapters.CoinAdapter
 import com.kodeco.koinmeter.data.remote.adapters.CoinMarketChartPriceAdapter
 import com.kodeco.koinmeter.data.remote.adapters.LocalDateTimeAdapter
@@ -48,6 +50,10 @@ val databaseModule = module {
     single { provideDatabase(get()) }
     single { provideCoinDao(get()) }
     single { provideCoinMarketChartDao(get()) }
+}
+
+val dataStorePrefsModule = module {
+    single<TimeFramePrefs> { TimeFramePrefsImpl(get()) }
 }
 
 val topCoinModule = module {

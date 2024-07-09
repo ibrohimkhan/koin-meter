@@ -9,6 +9,6 @@ enum class TimeFrame(val value: Frame) {
 }
 
 data class Frame(
-    val strValue: String,
-    val intValue: Int
+    val range: String,
+    val days: Int
 )
