@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,11 +21,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.lifecycleScope
-import com.kodeco.koinmeter.data.remote.RemoteApiService
-import com.kodeco.koinmeter.domain.usecase.topcoins.GetTopCoinsUseCase
-import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.domain.model.TimeFrame
+import com.kodeco.koinmeter.domain.usecase.coinmarketchart.GetCoinMarketChartUseCase
+import com.kodeco.koinmeter.domain.usecase.topcoins.GetTopCoinsUseCase
 import com.kodeco.koinmeter.presentation.components.LineChart
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import kotlinx.coroutines.launch
@@ -35,19 +35,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        var coins by mutableStateOf(emptyList<Coin>())
         var chartData by mutableStateOf(emptyList<CoinMarketChartPrice>())
 
-        val apiService: RemoteApiService by inject()
         val topCoinUseCase: GetTopCoinsUseCase by inject()
+        val coinMarketChartUseCase: GetCoinMarketChartUseCase by inject()
 
         lifecycleScope.launch {
-            coins = topCoinUseCase(timeframe = TimeFrame.Day.value.strValue)
-            val chartDataResponse = apiService.getCoinMarketChartData(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
-
-            if (chartDataResponse.isSuccessful) {
-                chartData = chartDataResponse.body() ?: emptyList()
-            }
+            chartData = coinMarketChartUseCase(coinId = "bitcoin", days = TimeFrame.Year.value.intValue)
         }
 
         setContent {
@@ -58,6 +52,8 @@ class MainActivity : ComponentActivity() {
                             .fillMaxSize()
                             .padding(innerPadding)
                     ) {
+                        val coins by topCoinUseCase(timeframe = TimeFrame.Day.value.strValue).collectAsState(initial = emptyList())
+
                         LazyColumn {
                             item {
                                 LineChart(

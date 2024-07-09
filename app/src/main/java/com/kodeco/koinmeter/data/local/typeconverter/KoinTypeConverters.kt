@@ -7,7 +7,7 @@ import com.squareup.moshi.Types
 import org.koin.java.KoinJavaComponent.inject
 
 class KoinTypeConverters {
-    val moshi: Moshi by inject(Moshi::class.java)
+    private val moshi: Moshi by inject(Moshi::class.java)
 
     private val type = Types.newParameterizedType(List::class.java, CoinMarketChart::class.java)
     private val adapter = moshi.adapter<List<CoinMarketChart>>(type)

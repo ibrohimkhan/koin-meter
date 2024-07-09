@@ -3,6 +3,7 @@ package com.kodeco.koinmeter.data.remote
 import com.kodeco.koinmeter.BuildConfig
 import com.kodeco.koinmeter.data.remote.adapters.CoinAdapter
 import com.kodeco.koinmeter.data.remote.adapters.CoinMarketChartPriceAdapter
+import com.kodeco.koinmeter.data.remote.adapters.LocalDateTimeAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -13,10 +14,12 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 fun provideMoshi(
     coinAdapter: CoinAdapter,
     coinMarketChartPriceAdapter: CoinMarketChartPriceAdapter,
+    localDateAdapter: LocalDateTimeAdapter,
     kotlinJsonAdapterFactory: KotlinJsonAdapterFactory,
 ): Moshi = Moshi.Builder()
     .add(coinAdapter)
     .add(coinMarketChartPriceAdapter)
+    .add(localDateAdapter)
     .add(kotlinJsonAdapterFactory)
     .build()
 

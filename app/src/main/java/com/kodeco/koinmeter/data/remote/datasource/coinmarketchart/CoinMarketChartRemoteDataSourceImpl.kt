@@ -7,5 +7,5 @@ class CoinMarketChartRemoteDataSourceImpl(
 ) : CoinMarketChartRemoteDataSource {
 
     override suspend fun getCoinMarketChartData(coinId: String, days: Int) =
-        apiService.getCoinMarketChartData(coinId = coinId, days = days).body() ?: emptyList()
+        apiService.getCoinMarketChartData(coinId = coinId, days = days)
 }

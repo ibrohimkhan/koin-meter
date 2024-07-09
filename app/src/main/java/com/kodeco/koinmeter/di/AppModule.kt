@@ -9,6 +9,7 @@ import com.kodeco.koinmeter.data.local.provideCoinMarketChartDao
 import com.kodeco.koinmeter.data.local.provideDatabase
 import com.kodeco.koinmeter.data.remote.adapters.CoinAdapter
 import com.kodeco.koinmeter.data.remote.adapters.CoinMarketChartPriceAdapter
+import com.kodeco.koinmeter.data.remote.adapters.LocalDateTimeAdapter
 import com.kodeco.koinmeter.data.remote.datasource.coinmarketchart.CoinMarketChartRemoteDataSource
 import com.kodeco.koinmeter.data.remote.datasource.coinmarketchart.CoinMarketChartRemoteDataSourceImpl
 import com.kodeco.koinmeter.data.repository.TopCoinsRepositoryImpl
@@ -33,8 +34,9 @@ import org.koin.dsl.module
 val networkingModule = module {
     single { CoinAdapter() }
     single { CoinMarketChartPriceAdapter() }
+    single { LocalDateTimeAdapter() }
     single { KotlinJsonAdapterFactory() }
-    single { provideMoshi(get(), get(), get()) }
+    single { provideMoshi(get(), get(), get(), get()) }
     single { provideHttpClient() }
     single { provideRetrofit(get(), get()) }
     single { provideApiService(get()) }
