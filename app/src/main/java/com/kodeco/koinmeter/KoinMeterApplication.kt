@@ -6,6 +6,7 @@ import com.kodeco.koinmeter.di.dataStorePrefsModule
 import com.kodeco.koinmeter.di.databaseModule
 import com.kodeco.koinmeter.di.favoriteCoinsModule
 import com.kodeco.koinmeter.di.networkingModule
+import com.kodeco.koinmeter.di.timeFrameSettingsModule
 import com.kodeco.koinmeter.di.topCoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -22,7 +23,8 @@ class KoinMeterApplication : Application() {
                 dataStorePrefsModule,
                 topCoinModule,
                 coinMarketChartModule,
-                favoriteCoinsModule
+                favoriteCoinsModule,
+                timeFrameSettingsModule,
             )
         }
     }
