@@ -16,12 +16,6 @@ interface CoinDao {
     @Query("SELECT * FROM coins WHERE id = :coinId")
     suspend fun getCoinById(coinId: String): CoinEntity?
 
-    @Query("SELECT * FROM coins WHERE is_favorite = 1")
-    fun getFavoriteCoins(): Flow<List<CoinEntity>?>
-
-    @Query("UPDATE coins SET is_favorite = :isFavorite WHERE id = :coinId")
-    suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean)
-
     @Query("DELETE FROM coins")
     suspend fun deleteAllCoins()
 

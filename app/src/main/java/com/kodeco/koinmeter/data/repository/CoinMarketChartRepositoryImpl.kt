@@ -1,7 +1,8 @@
 package com.kodeco.koinmeter.data.repository
 
 import com.kodeco.koinmeter.data.local.datasource.coinmarketchart.CoinMarketChartLocalDataSource
-import com.kodeco.koinmeter.data.mapper.DataMappers
+import com.kodeco.koinmeter.data.mapper.toCoinMarketChartEntity
+import com.kodeco.koinmeter.data.mapper.toCoinMarketChartPrice
 import com.kodeco.koinmeter.data.remote.datasource.coinmarketchart.CoinMarketChartRemoteDataSource
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.domain.repository.CoinMarketChartRepository
@@ -18,14 +19,15 @@ class CoinMarketChartRepositoryImpl(
 
         if (response.isSuccessful) {
             response.body()?.let { coinMarketChartPrices ->
-                val entity = DataMappers.coinMarketChartPriceToEntity(coinId, coinMarketChartPrices)
+                val entity = coinMarketChartPrices.toCoinMarketChartEntity(coinId)
+
                 localDataSource.insertCoinMarketChart(entity)
                 cachedCoinMarketChartPrices[coinId] = coinMarketChartPrices
             }
         }
 
-        localDataSource.getCoinMarketChartByCoinId(coinId)?.let { localData ->
-            return DataMappers.coinMarketChartEntityToDomain(localData)
+        localDataSource.getCoinMarketChartByCoinId(coinId)?.let { entity ->
+            return entity.toCoinMarketChartPrice()
         }
 
         return cachedCoinMarketChartPrices[coinId] ?: emptyList()

@@ -2,11 +2,14 @@ package com.kodeco.koinmeter.di
 
 import com.kodeco.koinmeter.data.local.datasource.coinmarketchart.CoinMarketChartLocalDataSource
 import com.kodeco.koinmeter.data.local.datasource.coinmarketchart.CoinMarketChartLocalDataSourceImpl
+import com.kodeco.koinmeter.data.local.datasource.favoritecoins.FavoriteCoinsLocalDataSource
+import com.kodeco.koinmeter.data.local.datasource.favoritecoins.FavoriteCoinsLocalDataSourceImpl
 import com.kodeco.koinmeter.data.local.datasource.topcoins.TopCoinsLocalDataSource
 import com.kodeco.koinmeter.data.local.datasource.topcoins.TopCoinsLocalDataSourceImpl
 import com.kodeco.koinmeter.data.local.provideCoinDao
 import com.kodeco.koinmeter.data.local.provideCoinMarketChartDao
 import com.kodeco.koinmeter.data.local.provideDatabase
+import com.kodeco.koinmeter.data.local.provideFavoriteCoinDao
 import com.kodeco.koinmeter.data.prefs.TimeFramePrefs
 import com.kodeco.koinmeter.data.prefs.TimeFramePrefsImpl
 import com.kodeco.koinmeter.data.remote.adapters.CoinAdapter
@@ -21,13 +24,16 @@ import com.kodeco.koinmeter.data.remote.provideHttpClient
 import com.kodeco.koinmeter.data.remote.provideMoshi
 import com.kodeco.koinmeter.data.remote.provideRetrofit
 import com.kodeco.koinmeter.data.repository.CoinMarketChartRepositoryImpl
+import com.kodeco.koinmeter.data.repository.FavoriteCoinsRepositoryImpl
 import com.kodeco.koinmeter.data.repository.TopCoinsRepositoryImpl
 import com.kodeco.koinmeter.domain.repository.CoinMarketChartRepository
+import com.kodeco.koinmeter.domain.repository.FavoriteCoinsRepository
 import com.kodeco.koinmeter.domain.repository.TopCoinsRepository
 import com.kodeco.koinmeter.domain.usecase.coinmarketchart.DeleteAllCoinMarketChartsUseCase
 import com.kodeco.koinmeter.domain.usecase.coinmarketchart.GetCoinMarketChartUseCase
 import com.kodeco.koinmeter.domain.usecase.favoritecoins.GetFavoriteCoinsUseCase
-import com.kodeco.koinmeter.domain.usecase.favoritecoins.UpdateFavoriteCoinUseCase
+import com.kodeco.koinmeter.domain.usecase.favoritecoins.AddFavoriteCoinUseCase
+import com.kodeco.koinmeter.domain.usecase.favoritecoins.DeleteFavoriteCoinUseCase
 import com.kodeco.koinmeter.domain.usecase.settings.GetTimeFrameSettingsUseCase
 import com.kodeco.koinmeter.domain.usecase.settings.UpdateTimeFrameSettingsUseCase
 import com.kodeco.koinmeter.domain.usecase.topcoins.GetCoinUseCase
@@ -53,6 +59,7 @@ val databaseModule = module {
     single { provideDatabase(get()) }
     single { provideCoinDao(get()) }
     single { provideCoinMarketChartDao(get()) }
+    single { provideFavoriteCoinDao(get()) }
 }
 
 val dataStorePrefsModule = module {
@@ -82,8 +89,12 @@ val coinMarketChartModule = module {
 }
 
 val favoriteCoinsModule = module {
+    single<FavoriteCoinsLocalDataSource> { FavoriteCoinsLocalDataSourceImpl(get()) }
+    single<FavoriteCoinsRepository> { FavoriteCoinsRepositoryImpl(get()) }
+
     factory { GetFavoriteCoinsUseCase(get()) }
-    factory { UpdateFavoriteCoinUseCase(get()) }
+    factory { AddFavoriteCoinUseCase(get()) }
+    factory { DeleteFavoriteCoinUseCase(get()) }
 }
 
 val timeFrameSettingsModule = module {

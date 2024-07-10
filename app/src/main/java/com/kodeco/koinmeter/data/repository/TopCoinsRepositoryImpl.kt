@@ -1,12 +1,14 @@
 package com.kodeco.koinmeter.data.repository
 
 import com.kodeco.koinmeter.data.local.datasource.topcoins.TopCoinsLocalDataSource
-import com.kodeco.koinmeter.data.mapper.DataMappers
+import com.kodeco.koinmeter.data.mapper.toCoin
+import com.kodeco.koinmeter.data.mapper.toCoinEntity
 import com.kodeco.koinmeter.data.remote.datasource.topcoins.TopCoinsRemoteDataSource
 import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.repository.TopCoinsRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 
 class TopCoinsRepositoryImpl(
     private val remoteDataSource: TopCoinsRemoteDataSource,
@@ -15,47 +17,27 @@ class TopCoinsRepositoryImpl(
 
     private var cachedTopCoins = emptyList<Coin>()
 
-    override fun getTopCoins(timeframe: String): Flow<List<Coin>> = flow {
+    override suspend fun getTopCoins(timeframe: String): Flow<List<Coin>> {
         val response = remoteDataSource.getTopCoins(timeframe)
 
         if (response.isSuccessful) {
             response.body()?.let { coinList ->
-                val entity = DataMappers.topCoinsToEntity(coinList)
-                localDataSource.insertCoins(entity)
+                val entities = coinList.map { it.toCoinEntity() }
+                localDataSource.insertCoins(entities)
                 cachedTopCoins = coinList
             }
         }
 
-        localDataSource.getAllCoins().collect { coins ->
-            val topCoins = DataMappers.coinEntityToDomain(coins)
-
-            if (topCoins.isEmpty()) emit(cachedTopCoins)
-            else emit(topCoins)
-        }
+        return localDataSource.getAllCoins()
+            .map { entities ->
+                if (entities.isNotEmpty()) entities.map { coinEntity -> coinEntity.toCoin() }
+                else cachedTopCoins
+            }
     }
 
-    override fun getCoin(coinId: String): Flow<Coin?> = flow {
-        val entity = localDataSource.getCoinById(coinId)
-
-        if (entity != null) emit(DataMappers.coinEntityToDomain(entity))
-        else emit(cachedTopCoins.find { it.id == coinId })
-    }
-
-    override fun getFavoriteCoins(): Flow<List<Coin>> = flow {
-        localDataSource.getFavoriteCoins().collect { coins ->
-            if (coins.isNullOrEmpty()) emit(cachedTopCoins.filter { it.isFavorite })
-            else emit(DataMappers.coinEntityToDomain(coins))
-        }
-    }
-
-    override suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean) {
-        localDataSource.updateFavoriteStatus(coinId, isFavorite)
-        updateCachedTopCoins(coinId, isFavorite)
-    }
-
-    private fun updateCachedTopCoins(coinId: String, isFavorite: Boolean) {
-        cachedTopCoins.find { it.id == coinId }?.copy(isFavorite = isFavorite)?.let { coin ->
-            cachedTopCoins = cachedTopCoins.filter { it.id != coinId } + coin
-        }
+    override suspend fun getCoin(coinId: String): Flow<Coin?> {
+        return localDataSource.getCoinById(coinId)?.let {
+            flowOf(it.toCoin())
+        } ?: flowOf(cachedTopCoins.find { it.id == coinId })
     }
 }

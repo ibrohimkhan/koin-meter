@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.kodeco.koinmeter.data.local.dao.CoinDao
 import com.kodeco.koinmeter.data.local.dao.CoinMarketChartDao
+import com.kodeco.koinmeter.data.local.dao.FavoriteCoinDao
 
 const val DATABASE_NAME = "koin_meter_database"
 
@@ -21,3 +22,6 @@ fun provideCoinDao(database: KoinMeterDatabase): CoinDao =
 
 fun provideCoinMarketChartDao(database: KoinMeterDatabase): CoinMarketChartDao =
     database.coinMarketChartDao()
+
+fun provideFavoriteCoinDao(database: KoinMeterDatabase): FavoriteCoinDao =
+    database.favoriteCoinDao()

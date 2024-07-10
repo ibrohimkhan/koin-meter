@@ -11,14 +11,8 @@ class TopCoinsLocalDataSourceImpl(
     override fun getAllCoins(): Flow<List<CoinEntity>> =
         coinDao.getAllCoins()
 
-    override fun getFavoriteCoins(): Flow<List<CoinEntity>?> =
-        coinDao.getFavoriteCoins()
-
     override suspend fun getCoinById(coinId: String): CoinEntity? =
         coinDao.getCoinById(coinId)
-
-    override suspend fun updateFavoriteStatus(coinId: String, isFavorite: Boolean) =
-        coinDao.updateFavoriteStatus(coinId, isFavorite)
 
     override suspend fun deleteAllCoins() =
         coinDao.deleteAllCoins()

@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class GetTopCoinsUseCase(private val repository: TopCoinsRepository) {
 
-    operator fun invoke(timeframe: String): Flow<List<Coin>> =
+    operator suspend fun invoke(timeframe: String): Flow<List<Coin>> =
         repository.getTopCoins(timeframe)
 }
