@@ -30,4 +30,9 @@ class CoinMarketChartRepositoryImpl(
 
         return cachedCoinMarketChartPrices[coinId] ?: emptyList()
     }
+
+    override suspend fun deleteAllCoinMarketCharts() {
+        localDataSource.deleteAllCoinMarketCharts()
+        cachedCoinMarketChartPrices.clear()
+    }
 }
