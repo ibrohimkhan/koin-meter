@@ -75,7 +75,7 @@ val topCoinModule = module {
     factory { GetTopCoinsUseCase(get()) }
     factory { GetCoinUseCase(get()) }
 
-    viewModel { TopCoinsViewModel(get()) }
+    viewModel { TopCoinsViewModel(get(), get()) }
 }
 
 val coinMarketChartModule = module {

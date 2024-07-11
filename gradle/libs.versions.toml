@@ -41,6 +41,7 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 
 # Material Design 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+material = { group = "androidx.compose.material", name = "material" }
 
 # Material design icons
 material-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "material-icons" }

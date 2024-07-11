@@ -73,7 +73,11 @@ fun ApplicationNavigation() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screens.TopCoins.route) {
-                TopCoinsScreen()
+                TopCoinsScreen(
+                    onItemClicked = { coinId ->
+                        navController.navigate("coin_detail_route/$coinId")
+                    }
+                )
             }
 
             composable(
