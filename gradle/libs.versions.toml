@@ -8,6 +8,7 @@ espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.3"
 activityCompose = "1.9.0"
 composeBom = "2024.06.00"
+material-icons = "1.6.8"
 fonts = "1.6.8"
 navigation = "2.7.7"
 lifecycleViewmodelCompose = "2.8.3"
@@ -40,6 +41,11 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 
 # Material Design 3
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+
+# Material design icons
+material-icons = { module = "androidx.compose.material:material-icons-core", version.ref = "material-icons" }
+material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons" }
+
 
 # Fonts
 fonts = { module = "androidx.compose.ui:ui-text-google-fonts", version.ref = "fonts" }

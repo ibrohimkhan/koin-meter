@@ -1,18 +1,18 @@
-package com.kodeco.koinmeter.presentation.screens.topcoins
+package com.kodeco.koinmeter.presentation.screens.coindetails
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 @Composable
-fun TopCoinsScreen() {
+fun CoinDetailScreen() {
 
 }
 
 @Preview(showBackground = true)
 @Composable
-fun TopCoinsPreview() {
+fun CoinDetailScreenPreview() {
     KoinMeterTheme {
-        TopCoinsScreen()
+        CoinDetailScreen()
     }
 }
