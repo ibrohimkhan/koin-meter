@@ -18,21 +18,13 @@ import kotlinx.coroutines.launch
 
 
 // State
-sealed class UiState {
-    data class SuccessOnCoin(val coin: Coin?) : UiState()
-
-    data class SuccessOnChart(val coinMarketChart: List<CoinMarketChartPrice>) : UiState()
-
-    data class CoinError(val throwable: Throwable) : UiState()
-
-    data class CoinMarketChartError(val throwable: Throwable) : UiState()
-
-    data class IsFavoriteCoin(val isFavorite: Boolean) : UiState()
-
-    data object Loading : UiState()
-
-    data object Initial : UiState()
-}
+data class UiState(
+    val coin: Coin? = null,
+    val coinMarketChart: List<CoinMarketChartPrice> = emptyList(),
+    var isFavorite: Boolean = false,
+    val timeFrame: TimeFrame = TimeFrame.Day,
+    val error: Throwable? = null,
+)
 
 // Intent
 sealed class CoinDetailIntent {
@@ -49,13 +41,25 @@ class CoinDetailViewModel(
     private val addFavoriteCoinUseCase: AddFavoriteCoinUseCase,
     private val deleteFavoriteCoinUseCase: DeleteFavoriteCoinUseCase,
     private val containsFavoriteCoinUseCase: ContainsFavoriteCoinUseCase,
-    getTimeFrameSettingsUseCase: GetTimeFrameSettingsUseCase,
+    private val getTimeFrameSettingsUseCase: GetTimeFrameSettingsUseCase,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow<UiState>(UiState.Initial)
-    val uiState = _uiState.asStateFlow()
+    private val _state = MutableStateFlow(UiState())
+    val uiState = _state.asStateFlow()
 
-    val timeFrameSettings = getTimeFrameSettingsUseCase()
+    init {
+        viewModelScope.launch {
+            getTimeFrameSettingsUseCase().collect { timeFrame ->
+                _state.value = _state.value.copy(timeFrame = timeFrame)
+            }
+        }
+    }
+
+    fun loadData(coinId: String) {
+        processIntent(CoinDetailIntent.LoadCoin(coinId))
+        processIntent(CoinDetailIntent.LoadChart(coinId, _state.value.timeFrame))
+        processIntent(CoinDetailIntent.IsFavoriteCoin(coinId))
+    }
 
     fun processIntent(intent: CoinDetailIntent) {
         viewModelScope.launch {
@@ -71,31 +75,27 @@ class CoinDetailViewModel(
 
     private suspend fun isFavoriteCoin(coinId: String) {
         containsFavoriteCoinUseCase(coinId).collect { isFavorite ->
-            _uiState.value = UiState.IsFavoriteCoin(isFavorite)
+            _state.value = _state.value.copy(isFavorite = isFavorite)
         }
     }
 
     private suspend fun getCoin(coinId: String) {
-        _uiState.value = UiState.Loading
-
         getCoinUseCase(coinId)
             .catch {
-                _uiState.value = UiState.CoinError(it)
+                _state.value = _state.value.copy(error = it)
             }
             .collect {
-                _uiState.value = UiState.SuccessOnCoin(it)
+                _state.value = _state.value.copy(coin = it)
             }
     }
 
     private suspend fun getCoinMarketChart(coinId: String, timeFrame: TimeFrame) {
-        _uiState.value = UiState.Loading
-
         try {
             val result = getCoinMarketChartUseCase(coinId, timeFrame.value.days)
-            _uiState.value = UiState.SuccessOnChart(result)
+            _state.value = _state.value.copy(coinMarketChart = result)
 
-        } catch (e: Exception) {
-            _uiState.value = UiState.CoinMarketChartError(e)
+        } catch (e: Throwable) {
+            _state.value = _state.value.copy(error = e)
         }
     }
 }

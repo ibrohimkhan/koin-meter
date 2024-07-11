@@ -15,10 +15,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -28,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.domain.model.Coin
+import com.kodeco.koinmeter.presentation.screens.coindetails.UiState
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 @Composable
@@ -84,21 +81,19 @@ fun FavoriteCoinsAppBarPreview() {
 
 @Composable
 fun CoinDetailAppBar(
-    coin: Coin,
-    isFavorite: Boolean,
+    uiState: UiState,
     onBackClicked: () -> Unit,
     addFavoriteCoin: (Coin) -> Unit,
     deleteFavoriteCoin: (Coin) -> Unit
 ) {
-    var isFavoriteClicked by rememberSaveable { mutableStateOf(isFavorite) }
 
     val rotationAnimation = animateFloatAsState(
         label = "rotationAnimation",
-        targetValue = if (isFavoriteClicked) 360f else 0f
+        targetValue = if (uiState.isFavorite) 360f else 0f
     )
 
     val painter =
-        if (isFavoriteClicked) painterResource(id = R.drawable.star_filled)
+        if (uiState.isFavorite) painterResource(id = R.drawable.star_filled)
         else painterResource(id = R.drawable.star_outline)
 
     TopAppBar(
@@ -109,16 +104,16 @@ fun CoinDetailAppBar(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = coin.name ?: stringResource(R.string.unknown),
+                    text = uiState.coin?.name ?: stringResource(R.string.unknown),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp)
                 )
 
                 IconButton(
                     onClick = {
-                        isFavoriteClicked = !isFavoriteClicked
-                        if (isFavoriteClicked) addFavoriteCoin(coin)
-                        else deleteFavoriteCoin(coin)
+                        uiState.isFavorite = !uiState.isFavorite
+                        if (uiState.isFavorite) addFavoriteCoin(uiState.coin ?: return@IconButton)
+                        else deleteFavoriteCoin(uiState.coin ?: return@IconButton)
                     },
                     modifier = Modifier
                         .size(24.dp)
@@ -147,8 +142,17 @@ fun CoinDetailAppBar(
 fun CoinDetailAppBarPreview() {
     KoinMeterTheme {
         CoinDetailAppBar(
-            coin = Coin(id = "bitcoin", name = "Bitcoin", symbol = "BTC"),
-            isFavorite = true,
+            uiState = UiState(
+                coin = Coin(
+                    id = "bitcoin",
+                    name = "Bitcoin",
+                    symbol = "BTC",
+                    image = "https://example.com/bitcoin.png",
+                    currentPrice = 70000.0
+                ),
+                isFavorite = true,
+                error = null
+            ),
             onBackClicked = {},
             addFavoriteCoin = {},
             deleteFavoriteCoin = {}

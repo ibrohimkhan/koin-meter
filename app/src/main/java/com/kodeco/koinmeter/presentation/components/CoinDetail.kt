@@ -34,23 +34,23 @@ import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.domain.model.TimeFrame
 import com.kodeco.koinmeter.presentation.extensions.formatAsCurrency
+import com.kodeco.koinmeter.presentation.screens.coindetails.UiState
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
+import java.time.LocalDateTime
 
 
 @Composable
 fun CoinDetail(
-    coin: Coin,
-    coinMarketChart: List<CoinMarketChartPrice>?,
-    timeSettings: TimeFrame,
+    uiState: UiState,
     appBar: @Composable () -> Unit,
-    coinError: Throwable?,
-    coinMarketChartError: Throwable?
 ) {
     Scaffold(
         topBar = appBar,
         modifier = Modifier
             .fillMaxSize()
     ) { paddingValues ->
+
+        val coin = uiState.coin ?: return@Scaffold
 
         Column(
             modifier = Modifier
@@ -127,18 +127,33 @@ fun CoinDetail(
 fun CoinDetailPreview() {
     KoinMeterTheme {
         CoinDetail(
-            coin = Coin(
-                id = "bitcoin",
-                name = "Bitcoin",
-                symbol = "BTC",
-                currentPrice = 100000.0,
-                marketCapRank = 1
+            uiState = UiState(
+                coin = Coin(
+                    id = "bitcoin",
+                    name = "Bitcoin",
+                    symbol = "BTC",
+                    image = "https://example.com/bitcoin.png",
+                    currentPrice = 70000.0
+                ),
+                coinMarketChart = listOf(
+                    CoinMarketChartPrice(
+                        date = LocalDateTime.now(),
+                        price = 70000.0
+                    ),
+                    CoinMarketChartPrice(
+                        date = LocalDateTime.now(),
+                        price = 60000.0
+                    ),
+                    CoinMarketChartPrice(
+                        date = LocalDateTime.now(),
+                        price = 80000.0
+                    )
+                ),
+                isFavorite = true,
+                timeFrame = TimeFrame.Day,
+                error = null
             ),
-            coinMarketChart = emptyList(),
-            timeSettings = TimeFrame.Day,
             appBar = { FavoriteCoinsAppBar() },
-            coinError = null,
-            coinMarketChartError = null
         )
     }
 }
