@@ -28,6 +28,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.domain.model.Coin
+import com.kodeco.koinmeter.presentation.extensions.formatAsCurrency
+import com.kodeco.koinmeter.presentation.extensions.formatWithPattern
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 @Composable
@@ -36,6 +38,14 @@ fun CoinListItem(
     onItemClicked: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val priceChangePercentageInCurrency =
+        coin.priceChangePercentage24hInCurrency
+            ?: coin.priceChangePercentage7dInCurrency
+            ?: coin.priceChangePercentage30dInCurrency
+            ?: coin.priceChangePercentage200dInCurrency
+            ?: coin.priceChangePercentage1yInCurrency
+            ?: 0.0
+
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -67,7 +77,9 @@ fun CoinListItem(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.Start,
-            modifier = Modifier.padding(8.dp).weight(0.6f)
+            modifier = Modifier
+                .padding(8.dp)
+                .weight(0.6f)
         ) {
             Text(
                 text = coin.name ?: stringResource(R.string.unknown),
@@ -111,10 +123,12 @@ fun CoinListItem(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.End,
-            modifier = Modifier.padding(8.dp).weight(0.4f)
+            modifier = Modifier
+                .padding(8.dp)
+                .weight(0.4f)
         ) {
             Text(
-                text = "$ ${coin.currentPrice ?: stringResource(R.string.unknown)}",
+                text = coin.currentPrice.formatAsCurrency(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
@@ -125,17 +139,23 @@ fun CoinListItem(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "${coin.priceChange24h ?: stringResource(R.string.unknown)}",
+                text = priceChangePercentageInCurrency.formatWithPattern().plus("%"),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .background(
-                        color = if ((coin.priceChange24h ?: 0.0) > 0) {
-                            Color.Green
-                        } else {
-                            Color.Red
+                        color = when {
+                            priceChangePercentageInCurrency == 0.0 -> {
+                                Color.Gray.copy(alpha = 0.3f)
+                            }
+                            priceChangePercentageInCurrency < 0.0 -> {
+                                Color.Red.copy(alpha = 0.3f)
+                            }
+                            else -> {
+                                Color.Green.copy(alpha = 0.3f)
+                            }
                         },
                         shape = MaterialTheme.shapes.medium
                     )

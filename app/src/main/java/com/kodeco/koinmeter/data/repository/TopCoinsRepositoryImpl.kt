@@ -1,5 +1,6 @@
 package com.kodeco.koinmeter.data.repository
 
+import android.util.Log
 import com.kodeco.koinmeter.data.local.datasource.topcoins.TopCoinsLocalDataSource
 import com.kodeco.koinmeter.data.mapper.toCoin
 import com.kodeco.koinmeter.data.mapper.toCoinEntity
@@ -18,14 +19,18 @@ class TopCoinsRepositoryImpl(
     private var cachedTopCoins = emptyList<Coin>()
 
     override suspend fun getTopCoins(timeframe: String): Flow<List<Coin>> {
-        val response = remoteDataSource.getTopCoins(timeframe)
+        try {
+            val response = remoteDataSource.getTopCoins(timeframe)
 
-        if (response.isSuccessful) {
-            response.body()?.let { coinList ->
-                val entities = coinList.map { it.toCoinEntity() }
-                localDataSource.insertCoins(entities)
-                cachedTopCoins = coinList
+            if (response.isSuccessful) {
+                response.body()?.let { coinList ->
+                    val entities = coinList.map { it.toCoinEntity() }
+                    localDataSource.insertCoins(entities)
+                    cachedTopCoins = coinList
+                }
             }
+        } catch (e: Throwable) {
+            Log.e("TopCoinsRepositoryImpl", "Error fetching top coins", e)
         }
 
         return localDataSource.getAllCoins()

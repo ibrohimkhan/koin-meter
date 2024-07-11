@@ -35,6 +35,14 @@ class TopCoinsViewModel(
 
     val timeFrameSettings = getTimeFrameSettingsUseCase()
 
+    init {
+        viewModelScope.launch {
+            timeFrameSettings.collect {
+                fetchTopCoins(it.value.range)
+            }
+        }
+    }
+
     fun processIntent(intent: TopCoinsIntent) {
         viewModelScope.launch {
             when (intent) {

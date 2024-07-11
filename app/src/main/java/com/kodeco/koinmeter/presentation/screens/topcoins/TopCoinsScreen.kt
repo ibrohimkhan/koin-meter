@@ -24,12 +24,6 @@ fun TopCoinsScreen(
 ) {
     val errorMessage = stringResource(R.string.something_went_wrong)
 
-    LaunchedEffect(Unit) {
-        viewModel.timeFrameSettings.collect {
-            viewModel.processIntent(TopCoinsIntent.LoadTopCoins(it))
-        }
-    }
-
     val timeSettings = viewModel.timeFrameSettings.collectAsState(initial = TimeFrame.Day)
     val uiState by viewModel.uiState.collectAsState()
 

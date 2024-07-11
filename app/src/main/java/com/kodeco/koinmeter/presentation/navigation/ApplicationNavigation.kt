@@ -35,7 +35,6 @@ fun ApplicationNavigation() {
     val navController = rememberNavController()
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
         bottomBar = {
             NavigationBar {
                 BottomNavigationItem().bottomNavigationItems()
@@ -62,7 +61,9 @@ fun ApplicationNavigation() {
                         )
                     }
             }
-        }
+        },
+        modifier = Modifier.fillMaxSize(),
+
     ) { innerPadding ->
 
         NavHost(

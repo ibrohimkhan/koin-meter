@@ -25,16 +25,19 @@ fun CoinList(
 ) {
     Scaffold(
         topBar = appBar,
+        modifier = Modifier.fillMaxSize()
     ) { innerPadding ->
+
+        val sortedCoins = coins.toMutableSet().sortedBy { it.marketCapRank ?: 0 }
 
         Box(
             modifier = Modifier
-                .fillMaxSize()
                 .padding(innerPadding)
+                .fillMaxSize()
                 .pullRefresh(pullRefreshState)
         ) {
             LazyColumn {
-                items(coins) { coin ->
+                items(sortedCoins) { coin ->
                     CoinListItem(
                         coin = coin,
                         onItemClicked = onItemClicked,
@@ -56,6 +59,13 @@ fun CoinListPreview() {
                 Coin(id = "eth", name = "Ethereum", symbol = "ETH"),
                 Coin(id = "sol", name = "Solana", symbol = "SOL"),
                 Coin(id = "dot", name = "Polkadot", symbol = "DOT"),
+                Coin(id = "atom", name = "Cosmos", symbol = "ATOM"),
+                Coin(id = "manta", name = "Manta", symbol = "MANTA"),
+                Coin(id = "neuro", name = "Neuro", symbol = "NEURO"),
+                Coin(id = "ksm", name = "Kusama", symbol = "KSM"),
+                Coin(id = "ltc", name = "LiteCoin", symbol = "LTC"),
+                Coin(id = "kint", name = "Kintsugi", symbol = "KINT"),
+                Coin(id = "krest", name = "Krest", symbol = "KREST"),
             ),
             appBar = { TopCoinsAppBar() },
             onItemClicked = {},
