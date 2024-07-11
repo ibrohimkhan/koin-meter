@@ -1,5 +1,6 @@
 package com.kodeco.koinmeter.data.repository
 
+import android.util.Log
 import com.kodeco.koinmeter.data.local.datasource.coinmarketchart.CoinMarketChartLocalDataSource
 import com.kodeco.koinmeter.data.mapper.toCoinMarketChartEntity
 import com.kodeco.koinmeter.data.mapper.toCoinMarketChartPrice
@@ -15,15 +16,19 @@ class CoinMarketChartRepositoryImpl(
     private val cachedCoinMarketChartPrices = mutableMapOf<String, List<CoinMarketChartPrice>>()
 
     override suspend fun getCoinMarketChartData(coinId: String, days: Int): List<CoinMarketChartPrice> {
-        val response = remoteDataSource.getCoinMarketChartData(coinId, days)
+        try {
+            val response = remoteDataSource.getCoinMarketChartData(coinId, days)
 
-        if (response.isSuccessful) {
-            response.body()?.let { coinMarketChartPrices ->
-                val entity = coinMarketChartPrices.toCoinMarketChartEntity(coinId)
+            if (response.isSuccessful) {
+                response.body()?.let { coinMarketChartPrices ->
+                    val entity = coinMarketChartPrices.toCoinMarketChartEntity(coinId)
 
-                localDataSource.insertCoinMarketChart(entity)
-                cachedCoinMarketChartPrices[coinId] = coinMarketChartPrices
+                    localDataSource.insertCoinMarketChart(entity)
+                    cachedCoinMarketChartPrices[coinId] = coinMarketChartPrices
+                }
             }
+        } catch (e: Exception) {
+            Log.e("CoinMarketChartRepository", "Error fetching coin market chart data", e)
         }
 
         localDataSource.getCoinMarketChartByCoinId(coinId)?.let { entity ->

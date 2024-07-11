@@ -19,6 +19,9 @@ class FavoriteCoinsRepositoryImpl(
             }
     }
 
+    override fun containsFavoriteCoin(coinId: String): Flow<Int> =
+        localDataSource.containsFavoriteCoin(coinId)
+
     override suspend fun insertFavoriteCoin(coin: Coin) =
         localDataSource.insertFavoriteCoin(coin.toFavoriteCoinEntity())
 

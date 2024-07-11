@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface FavoriteCoinsRepository {
     fun getAllFavoriteCoins(): Flow<List<Coin>>
+    fun containsFavoriteCoin(coinId: String): Flow<Int>
     suspend fun insertFavoriteCoin(coin: Coin)
     suspend fun deleteFavoriteCoin(coin: Coin)
 }

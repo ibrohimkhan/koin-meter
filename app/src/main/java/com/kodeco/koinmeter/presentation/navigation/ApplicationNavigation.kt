@@ -53,6 +53,7 @@ fun ApplicationNavigation() {
                                 navController.navigate(navigationItem.route) {
                                     popUpTo(navController.graph.findStartDestination().id) {
                                         saveState = true
+                                        inclusive = true
                                     }
                                     launchSingleTop = true
                                     restoreState = true
@@ -89,7 +90,14 @@ fun ApplicationNavigation() {
                     },
                 ),
             ) {
-                CoinDetailScreen()
+                val coinId = it.arguments!!.getString(COIN_ID_KEY)!!
+
+                CoinDetailScreen(
+                    coinId = coinId,
+                    onBackClicked = {
+                        navController.navigateUp()
+                    }
+                )
             }
 
             composable(Screens.Favorite.route) {

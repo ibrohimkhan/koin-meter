@@ -11,6 +11,9 @@ class FavoriteCoinsLocalDataSourceImpl(
     override fun getAllFavoriteCoins(): Flow<List<FavoriteCoinEntity>> =
         favoriteCoinDao.getAllFavoriteCoins()
 
+    override fun containsFavoriteCoin(coinId: String): Flow<Int> =
+        favoriteCoinDao.containsFavoriteCoin(coinId)
+
     override suspend fun insertFavoriteCoin(favoriteCoin: FavoriteCoinEntity) =
         favoriteCoinDao.insertFavoriteCoin(favoriteCoin)
 

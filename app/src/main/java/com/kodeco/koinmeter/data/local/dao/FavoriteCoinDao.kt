@@ -14,6 +14,9 @@ interface FavoriteCoinDao {
     @Query("SELECT * FROM favorite_coins")
     fun getAllFavoriteCoins(): Flow<List<FavoriteCoinEntity>>
 
+    @Query("SELECT COUNT(*) FROM favorite_coins WHERE id = :coinId")
+    fun containsFavoriteCoin(coinId: String): Flow<Int>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFavoriteCoin(favoriteCoin: FavoriteCoinEntity)
 

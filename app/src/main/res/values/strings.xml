@@ -6,4 +6,6 @@
     <string name="coingecko">CoinGecko</string>
     <string name="favorites">Favorites</string>
     <string name="unknown">N/A</string>
+    <string name="arrow_back">Arrow Back</string>
+    <string name="favorite">Favorite</string>
 </resources>

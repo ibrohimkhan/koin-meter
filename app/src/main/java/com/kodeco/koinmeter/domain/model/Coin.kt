@@ -1,5 +1,9 @@
 package com.kodeco.koinmeter.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Coin(
     val id: String,
     val name: String? = null,
@@ -29,4 +33,4 @@ data class Coin(
     val priceChangePercentage30dInCurrency: Double? = null,
     val priceChangePercentage200dInCurrency: Double? = null,
     val priceChangePercentage1yInCurrency: Double? = null,
-)
+) : Parcelable
