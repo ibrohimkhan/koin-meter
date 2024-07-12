@@ -9,6 +9,11 @@ fun Double?.formatAsCurrency(): String {
     return NumberFormat.getCurrencyInstance(Locale.US).format(this)
 }
 
+fun Long?.formatAsCurrency(): String {
+    if (this == null) return "N/A"
+    return NumberFormat.getCurrencyInstance(Locale.US).format(this)
+}
+
 fun Double?.formatWithPattern(): String{
     if (this == null) return "N/A"
     val decimalFormat = DecimalFormat("#,###,###.###")

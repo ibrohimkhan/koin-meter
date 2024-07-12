@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
+import com.kodeco.koinmeter.presentation.extensions.formatDateChart
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import java.time.LocalDateTime
 import kotlin.math.round
@@ -46,6 +47,14 @@ fun LineChart(
         marketData.minOfOrNull { it.price }?.toInt() ?: 0
     }
 
+    val longestValue = remember(marketData) {
+        marketData.maxOfOrNull { it.date } ?: LocalDateTime.now()
+    }
+
+    val shortestValue = remember(marketData) {
+        marketData.minOfOrNull { it.date } ?: LocalDateTime.now()
+    }
+
     val density = LocalDensity.current
 
     val textPaint = remember(density) {
@@ -59,18 +68,22 @@ fun LineChart(
     Canvas(modifier = modifier) {
         val spacePerHour = (size.width - spacing) / marketData.size
 
-        (0 until marketData.size - 1 step 2).forEach { i ->
-            val info = marketData[i]
-            val hour = info.date.hour
+        drawContext.canvas.nativeCanvas.apply {
+            drawText(
+                shortestValue.formatDateChart(),
+                spacing * 1.5f,
+                size.height - 5,
+                textPaint
+            )
+        }
 
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    hour.toString(),
-                    spacing + i * spacePerHour,
-                    size.height - 5,
-                    textPaint
-                )
-            }
+        drawContext.canvas.nativeCanvas.apply {
+            drawText(
+                longestValue.formatDateChart(),
+                size.width - spacing,
+                size.height - 5,
+                textPaint
+            )
         }
 
         val priceStep = (upperValue - lowerValue) / 5f

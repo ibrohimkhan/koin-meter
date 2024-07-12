@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -18,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -116,8 +118,33 @@ fun CoinDetail(
                 textAlign = TextAlign.End,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.fillMaxSize().padding(end = 16.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(end = 16.dp)
             )
+
+            LineChart(
+                marketData = uiState.coinMarketChart,
+                graphColor = when {
+                    (coin.priceChangePercentage24h ?: 0.0) == 0.0 -> {
+                        Color.Gray.copy(alpha = 0.3f)
+                    }
+
+                    (coin.priceChangePercentage24h ?: 0.0) > 0 -> {
+                        Color.Green.copy(alpha = 0.3f)
+                    }
+
+                    else -> {
+                        Color.Red.copy(alpha = 0.3f)
+                    }
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .padding(16.dp)
+            )
+
+            MarketData(coin = coin)
         }
     }
 }

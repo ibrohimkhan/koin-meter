@@ -8,4 +8,5 @@
     <string name="unknown">N/A</string>
     <string name="arrow_back">Arrow Back</string>
     <string name="favorite">Favorite</string>
+    <string name="market_data">Market Data</string>
 </resources>

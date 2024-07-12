@@ -65,7 +65,7 @@ fun ApplicationNavigation() {
         },
         modifier = Modifier.fillMaxSize(),
 
-    ) { innerPadding ->
+        ) { innerPadding ->
 
         NavHost(
             navController = navController,
