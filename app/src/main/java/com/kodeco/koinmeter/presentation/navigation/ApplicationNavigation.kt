@@ -101,7 +101,11 @@ fun ApplicationNavigation() {
             }
 
             composable(Screens.Favorite.route) {
-                FavoriteCoinScreen()
+                FavoriteCoinScreen(
+                    onItemClicked = { coinId ->
+                        navController.navigate("coin_detail_route/$coinId")
+                    }
+                )
             }
 
             composable(Screens.Settings.route) {

@@ -2,8 +2,8 @@ package com.kodeco.koinmeter.presentation.navigation
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.TrendingUp
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.ui.graphics.vector.ImageVector
 
 data class BottomNavigationItem(
@@ -20,7 +20,7 @@ data class BottomNavigationItem(
             ),
             BottomNavigationItem(
                 label = "Favorite",
-                icon = Icons.Filled.Favorite,
+                icon = Icons.Filled.Star,
                 route = Screens.Favorite.route
             ),
             BottomNavigationItem(

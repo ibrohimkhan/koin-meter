@@ -25,6 +25,10 @@ import com.kodeco.koinmeter.presentation.extensions.formatAsCurrency
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import java.time.LocalDateTime
 
+/*
+* Inspired by:
+* https://github.com/CoinTrend/CoinTrend/blob/develop/presentation/src/main/java/com/cointrend/presentation/customcomposables/LineChart.kt
+*/
 
 @Composable
 fun LineChart(

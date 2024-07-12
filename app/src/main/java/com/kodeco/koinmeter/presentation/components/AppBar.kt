@@ -15,6 +15,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
@@ -65,6 +69,7 @@ fun FavoriteCoinsAppBar() {
             Text(
                 text = stringResource(R.string.favorites),
                 style = MaterialTheme.typography.titleMedium,
+                fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 modifier = Modifier.padding(8.dp)
             )
         }
@@ -86,14 +91,15 @@ fun CoinDetailAppBar(
     addFavoriteCoin: (Coin) -> Unit,
     deleteFavoriteCoin: (Coin) -> Unit
 ) {
+    var isFavorite by rememberSaveable { mutableStateOf(uiState.isFavorite) }
 
     val rotationAnimation = animateFloatAsState(
         label = "rotationAnimation",
-        targetValue = if (uiState.isFavorite) 360f else 0f
+        targetValue = if (isFavorite) 360f else 0f
     )
 
     val painter =
-        if (uiState.isFavorite) painterResource(id = R.drawable.star_filled)
+        if (isFavorite) painterResource(id = R.drawable.star_filled)
         else painterResource(id = R.drawable.star_outline)
 
     TopAppBar(
@@ -112,6 +118,8 @@ fun CoinDetailAppBar(
                 IconButton(
                     onClick = {
                         uiState.isFavorite = !uiState.isFavorite
+                        isFavorite = uiState.isFavorite
+
                         if (uiState.isFavorite) addFavoriteCoin(uiState.coin ?: return@IconButton)
                         else deleteFavoriteCoin(uiState.coin ?: return@IconButton)
                     },
