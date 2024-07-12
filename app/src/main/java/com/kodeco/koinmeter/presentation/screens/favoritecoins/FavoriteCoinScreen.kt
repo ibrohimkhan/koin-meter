@@ -9,8 +9,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.presentation.components.CoinList
 import com.kodeco.koinmeter.presentation.components.Errors
-import com.kodeco.koinmeter.presentation.components.FavoriteCoinsAppBar
 import com.kodeco.koinmeter.presentation.components.Loading
+import com.kodeco.koinmeter.presentation.components.appbars.FavoriteCoinsAppBar
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import org.koin.androidx.compose.koinViewModel
 

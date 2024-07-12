@@ -11,7 +11,7 @@ import com.kodeco.koinmeter.domain.model.TimeFrame
 import com.kodeco.koinmeter.presentation.components.CoinList
 import com.kodeco.koinmeter.presentation.components.Errors
 import com.kodeco.koinmeter.presentation.components.Loading
-import com.kodeco.koinmeter.presentation.components.TopCoinsAppBar
+import com.kodeco.koinmeter.presentation.components.appbars.TopCoinsAppBar
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import org.koin.androidx.compose.koinViewModel
 

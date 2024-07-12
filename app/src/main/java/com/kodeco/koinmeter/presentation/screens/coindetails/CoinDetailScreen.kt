@@ -6,7 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.koinmeter.presentation.components.CoinDetail
-import com.kodeco.koinmeter.presentation.components.CoinDetailAppBar
+import com.kodeco.koinmeter.presentation.components.appbars.CoinDetailAppBar
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import org.koin.androidx.compose.koinViewModel
 

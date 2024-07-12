@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kodeco.koinmeter.domain.model.Coin
+import com.kodeco.koinmeter.presentation.components.appbars.TopCoinsAppBar
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 @Composable

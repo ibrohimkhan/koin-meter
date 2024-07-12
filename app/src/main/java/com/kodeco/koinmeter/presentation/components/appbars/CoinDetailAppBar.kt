@@ -1,4 +1,4 @@
-package com.kodeco.koinmeter.presentation.components
+package com.kodeco.koinmeter.presentation.components.appbars
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.layout.Arrangement
@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -31,58 +30,6 @@ import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.presentation.screens.coindetails.UiState
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
-@Composable
-fun TopCoinsAppBar() {
-    TopAppBar(
-        title = {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start,
-            ) {
-                Text(
-                    text = stringResource(R.string.powered_by),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(8.dp)
-                )
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_coingecko),
-                    contentDescription = stringResource(R.string.coingecko),
-                    modifier = Modifier.width(100.dp)
-                )
-            }
-        }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TopCoinsAppBarPreview() {
-    KoinMeterTheme {
-        TopCoinsAppBar()
-    }
-}
-
-@Composable
-fun FavoriteCoinsAppBar() {
-    TopAppBar(
-        title = {
-            Text(
-                text = stringResource(R.string.favorites),
-                style = MaterialTheme.typography.titleMedium,
-                fontSize = MaterialTheme.typography.titleLarge.fontSize,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun FavoriteCoinsAppBarPreview() {
-    KoinMeterTheme {
-        FavoriteCoinsAppBar()
-    }
-}
 
 @Composable
 fun CoinDetailAppBar(
