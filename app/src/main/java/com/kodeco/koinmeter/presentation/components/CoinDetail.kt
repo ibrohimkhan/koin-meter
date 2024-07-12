@@ -140,8 +140,8 @@ fun CoinDetail(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp)
-                    .padding(16.dp)
+                    .height(180.dp)
+                    .padding(vertical = 8.dp)
             )
 
             MarketData(coin = coin)

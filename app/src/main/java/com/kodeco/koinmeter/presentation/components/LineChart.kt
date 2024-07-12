@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.asAndroidPath
 import androidx.compose.ui.graphics.asComposePath
@@ -20,11 +21,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
-import com.kodeco.koinmeter.presentation.extensions.formatDateChart
+import com.kodeco.koinmeter.presentation.extensions.formatAsCurrency
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 import java.time.LocalDateTime
-import kotlin.math.round
-import kotlin.math.roundToInt
 
 
 @Composable
@@ -33,34 +32,26 @@ fun LineChart(
     graphColor: Color,
     modifier: Modifier = Modifier,
 ) {
-    val spacing = 100f
+    if (marketData.isEmpty()) return
+
+    val spacing = 0f
 
     val transparentGraphColor = remember {
         graphColor.copy(alpha = 0.5f)
     }
 
-    val upperValue = remember(marketData) {
-        (marketData.maxOfOrNull { it.price }?.plus(1))?.roundToInt() ?: 0
-    }
-
-    val lowerValue = remember(marketData) {
-        marketData.minOfOrNull { it.price }?.toInt() ?: 0
-    }
-
-    val longestValue = remember(marketData) {
-        marketData.maxOfOrNull { it.date } ?: LocalDateTime.now()
-    }
-
-    val shortestValue = remember(marketData) {
-        marketData.minOfOrNull { it.date } ?: LocalDateTime.now()
+    val (lowerValue, upperValue) = remember(marketData) {
+        Pair(
+            marketData.minOfOrNull { it.price } ?: 0.0,
+            marketData.maxOfOrNull { it.price } ?: 0.0
+        )
     }
 
     val density = LocalDensity.current
-
     val textPaint = remember(density) {
         Paint().apply {
             color = android.graphics.Color.WHITE
-            textAlign = Paint.Align.CENTER
+            textAlign = Paint.Align.RIGHT
             textSize = density.run { 12.sp.toPx() }
         }
     }
@@ -68,38 +59,8 @@ fun LineChart(
     Canvas(modifier = modifier) {
         val spacePerHour = (size.width - spacing) / marketData.size
 
-        drawContext.canvas.nativeCanvas.apply {
-            drawText(
-                shortestValue.formatDateChart(),
-                spacing * 1.5f,
-                size.height - 5,
-                textPaint
-            )
-        }
-
-        drawContext.canvas.nativeCanvas.apply {
-            drawText(
-                longestValue.formatDateChart(),
-                size.width - spacing,
-                size.height - 5,
-                textPaint
-            )
-        }
-
-        val priceStep = (upperValue - lowerValue) / 5f
-
-        (0..4).forEach { i ->
-            drawContext.canvas.nativeCanvas.apply {
-                drawText(
-                    round(lowerValue + priceStep * i).toString(),
-                    30f,
-                    size.height - spacing - i * size.height / 5f,
-                    textPaint
-                )
-            }
-        }
-
         var lastX = 0f
+        var firstY = 0f
 
         val strokePath = Path().apply {
             val height = size.height
@@ -107,22 +68,22 @@ fun LineChart(
             for (i in marketData.indices) {
                 val info = marketData[i]
                 val nextInfo = marketData.getOrNull(i + 1) ?: marketData.last()
+
                 val leftRatio = (info.price - lowerValue) / (upperValue - lowerValue)
                 val rightRatio = (nextInfo.price - lowerValue) / (upperValue - lowerValue)
 
                 val x1 = spacing + i * spacePerHour
                 val y1 = height - spacing - (leftRatio * height).toFloat()
+
+                if (i == 0) firstY = y1
+
                 val x2 = spacing + (i + 1) * spacePerHour
                 val y2 = height - spacing - (rightRatio * height).toFloat()
 
-                if (i == 0) {
-                    moveTo(x1, y1)
-                }
+                if (i == 0) moveTo(x1, y1)
 
                 lastX = (x1 + x2) / 2f
-                quadraticBezierTo(
-                    x1, y1, lastX, (y1 + y2) / 2f
-                )
+                quadraticBezierTo(x1, y1, lastX, (y1 + y2) / 2f)
             }
         }
 
@@ -153,6 +114,37 @@ fun LineChart(
                 cap = StrokeCap.Round
             )
         )
+
+        // Dashed Lines
+        val dottedPath = Path().apply {
+            moveTo(0f, firstY)
+            lineTo(lastX, firstY)
+        }
+
+        drawPath(
+            path = dottedPath,
+            color = graphColor.copy(alpha = .8f),
+            style = Stroke(
+                width = 1.5.dp.toPx(),
+                cap = StrokeCap.Round,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 20f), 0f)
+            )
+        )
+
+        drawContext.canvas.nativeCanvas.apply {
+            drawText(
+                "MAX ${upperValue.formatAsCurrency()}",
+                size.width - 16.dp.toPx(),
+                0 + 8.dp.toPx(),
+                textPaint
+            )
+            drawText(
+                "MIN ${lowerValue.formatAsCurrency()}",
+                size.width - 16.dp.toPx(),
+                size.height - 4.dp.toPx(),
+                textPaint
+            )
+        }
     }
 }
 
