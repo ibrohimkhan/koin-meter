@@ -14,11 +14,11 @@ import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 
 @Composable
-fun FavoriteCoinsAppBar() {
+fun CommonAppBar(title: String) {
     TopAppBar(
         title = {
             Text(
-                text = stringResource(R.string.favorites),
+                text = title,
                 style = MaterialTheme.typography.titleMedium,
                 fontSize = MaterialTheme.typography.titleLarge.fontSize,
                 modifier = Modifier.padding(8.dp)
@@ -29,8 +29,8 @@ fun FavoriteCoinsAppBar() {
 
 @Preview(showBackground = true)
 @Composable
-fun FavoriteCoinsAppBarPreview() {
+fun CommonAppBarPreview() {
     KoinMeterTheme {
-        FavoriteCoinsAppBar()
+        CommonAppBar(stringResource(R.string.favorites))
     }
 }

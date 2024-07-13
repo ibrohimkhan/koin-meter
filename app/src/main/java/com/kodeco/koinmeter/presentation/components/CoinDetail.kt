@@ -35,7 +35,7 @@ import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import com.kodeco.koinmeter.domain.model.TimeFrame
-import com.kodeco.koinmeter.presentation.components.appbars.FavoriteCoinsAppBar
+import com.kodeco.koinmeter.presentation.components.appbars.CommonAppBar
 import com.kodeco.koinmeter.presentation.extensions.formatAsCurrency
 import com.kodeco.koinmeter.presentation.screens.coindetails.UiState
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
@@ -181,7 +181,7 @@ fun CoinDetailPreview() {
                 timeFrame = TimeFrame.Day,
                 error = null
             ),
-            appBar = { FavoriteCoinsAppBar() },
+            appBar = { CommonAppBar("Bitcoin") },
         )
     }
 }
