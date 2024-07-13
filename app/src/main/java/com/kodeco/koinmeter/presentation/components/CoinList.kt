@@ -26,7 +26,9 @@ fun CoinList(
 ) {
     Scaffold(
         topBar = appBar,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp)
     ) { innerPadding ->
 
         val sortedCoins = coins.toMutableSet().sortedBy { it.marketCapRank ?: 0 }
