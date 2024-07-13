@@ -108,7 +108,7 @@ val favoriteCoinsModule = module {
 
 val timeFrameSettingsModule = module {
     factory { GetTimeFrameSettingsUseCase(get()) }
-    factory { UpdateTimeFrameSettingsUseCase(get(), get()) }
+    factory { UpdateTimeFrameSettingsUseCase(get(), get(), get()) }
 
     viewModel { SettingsViewModel(get(), get()) }
 }
