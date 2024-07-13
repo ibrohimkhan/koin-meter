@@ -41,6 +41,7 @@ import com.kodeco.koinmeter.domain.usecase.topcoins.GetCoinUseCase
 import com.kodeco.koinmeter.domain.usecase.topcoins.GetTopCoinsUseCase
 import com.kodeco.koinmeter.presentation.screens.coindetails.CoinDetailViewModel
 import com.kodeco.koinmeter.presentation.screens.favoritecoins.FavoriteCoinViewModel
+import com.kodeco.koinmeter.presentation.screens.settings.SettingsViewModel
 import com.kodeco.koinmeter.presentation.screens.topcoins.TopCoinsViewModel
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -108,4 +109,6 @@ val favoriteCoinsModule = module {
 val timeFrameSettingsModule = module {
     factory { GetTimeFrameSettingsUseCase(get()) }
     factory { UpdateTimeFrameSettingsUseCase(get(), get()) }
+
+    viewModel { SettingsViewModel(get(), get()) }
 }

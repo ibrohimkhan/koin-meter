@@ -19,6 +19,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = STO
 object PrefsKeys {
     val DAYS_KEY = intPreferencesKey("days_key")
     val RANGE_KEY = stringPreferencesKey("range_key")
+    val TITLE_KEY = stringPreferencesKey("title_key")
 }
 
 class TimeFramePrefsImpl(private val context: Context) : TimeFramePrefs {
@@ -26,14 +27,16 @@ class TimeFramePrefsImpl(private val context: Context) : TimeFramePrefs {
     override fun getTimeFrameFlow(): Flow<TimeFrame> = context.dataStore.data.map {
         val days = it[PrefsKeys.DAYS_KEY] ?: 1
         val range = it[PrefsKeys.RANGE_KEY] ?: "24h"
+        val title = it[PrefsKeys.TITLE_KEY] ?: "24 Hours"
 
-        TimeFrame.entries.first { it.value == Frame(range, days) }
+        TimeFrame.entries.first { item -> item.value == Frame(range, days, title) }
     }
 
     override suspend fun saveTimeFrame(timeFrame: TimeFrame) {
         context.dataStore.edit { preferences ->
             preferences[PrefsKeys.DAYS_KEY] = timeFrame.value.days
             preferences[PrefsKeys.RANGE_KEY] = timeFrame.value.range
+            preferences[PrefsKeys.TITLE_KEY] = timeFrame.value.title
         }
     }
 }
