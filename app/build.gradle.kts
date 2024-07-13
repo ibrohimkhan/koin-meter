@@ -102,7 +102,7 @@ dependencies {
     ksp(libs.moshiCodeGen)
 
     implementation(libs.coil)
-    implementation(libs.lottie.compose)
+    implementation(libs.splash.screen)
 
     testImplementation(libs.junit)
     testImplementation(libs.roomTesting)
