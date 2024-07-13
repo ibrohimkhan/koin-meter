@@ -74,7 +74,7 @@ val topCoinModule = module {
     single<TopCoinsRemoteDataSource> { TopCoinsRemoteDataSourceImpl(get()) }
     single<TopCoinsLocalDataSource> { TopCoinsLocalDataSourceImpl(get()) }
 
-    single<TopCoinsRepository> { TopCoinsRepositoryImpl(get(), get()) }
+    single<TopCoinsRepository> { TopCoinsRepositoryImpl(get(), get(), get()) }
 
     factory { GetTopCoinsUseCase(get()) }
     factory { GetCoinUseCase(get()) }
