@@ -27,16 +27,19 @@ fun CoinDetailScreen(
     CoinDetail(
         uiState = uiState,
         appBar = {
-            CoinDetailAppBar(
-                uiState = uiState,
-                onBackClicked = onBackClicked,
-                addFavoriteCoin = { coin ->
-                    viewModel.processIntent(CoinDetailIntent.AddFavoriteCoin(coin))
-                },
-                deleteFavoriteCoin = { coin ->
-                    viewModel.processIntent(CoinDetailIntent.DeleteFavoriteCoin(coin))
-                }
-            )
+            uiState.coin?.let {
+                CoinDetailAppBar(
+                    coin = it,
+                    isFavoriteCoin = uiState.isFavorite,
+                    onBackClicked = onBackClicked,
+                    addFavoriteCoin = { coin ->
+                        viewModel.processIntent(CoinDetailIntent.AddFavoriteCoin(coin))
+                    },
+                    deleteFavoriteCoin = { coin ->
+                        viewModel.processIntent(CoinDetailIntent.DeleteFavoriteCoin(coin))
+                    }
+                )
+            }
         }
     )
 }

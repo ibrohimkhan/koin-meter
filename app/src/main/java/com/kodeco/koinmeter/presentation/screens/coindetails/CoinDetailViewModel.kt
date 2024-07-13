@@ -67,10 +67,20 @@ class CoinDetailViewModel(
                 is CoinDetailIntent.LoadCoin -> getCoin(intent.coinId)
                 is CoinDetailIntent.LoadChart -> getCoinMarketChart(intent.coinId, intent.timeFrame)
                 is CoinDetailIntent.IsFavoriteCoin -> isFavoriteCoin(intent.coinId)
-                is CoinDetailIntent.AddFavoriteCoin -> addFavoriteCoinUseCase(intent.coin)
-                is CoinDetailIntent.DeleteFavoriteCoin -> deleteFavoriteCoinUseCase(intent.coin)
+                is CoinDetailIntent.AddFavoriteCoin -> addFavoriteCoin(intent.coin)
+                is CoinDetailIntent.DeleteFavoriteCoin -> deleteFavoriteCoin(intent.coin)
             }
         }
+    }
+
+    private suspend fun addFavoriteCoin(coin: Coin) {
+        addFavoriteCoinUseCase(coin)
+        _state.value = _state.value.copy(isFavorite = true)
+    }
+
+    private suspend fun deleteFavoriteCoin(coin: Coin) {
+        deleteFavoriteCoinUseCase(coin)
+        _state.value = _state.value.copy(isFavorite = false)
     }
 
     private suspend fun isFavoriteCoin(coinId: String) {

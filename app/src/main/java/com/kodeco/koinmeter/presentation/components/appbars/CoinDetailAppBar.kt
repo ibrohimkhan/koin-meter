@@ -27,18 +27,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.domain.model.Coin
-import com.kodeco.koinmeter.presentation.screens.coindetails.UiState
 import com.kodeco.koinmeter.presentation.ui.theme.KoinMeterTheme
 
 
 @Composable
 fun CoinDetailAppBar(
-    uiState: UiState,
+    coin: Coin,
+    isFavoriteCoin: Boolean,
     onBackClicked: () -> Unit,
     addFavoriteCoin: (Coin) -> Unit,
     deleteFavoriteCoin: (Coin) -> Unit
 ) {
-    var isFavorite by rememberSaveable { mutableStateOf(uiState.isFavorite) }
+    var isFavorite by rememberSaveable { mutableStateOf(isFavoriteCoin) }
 
     val rotationAnimation = animateFloatAsState(
         label = "rotationAnimation",
@@ -57,18 +57,17 @@ fun CoinDetailAppBar(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
-                    text = uiState.coin?.name ?: stringResource(R.string.unknown),
+                    text = coin.name ?: stringResource(R.string.unknown),
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.padding(8.dp)
                 )
 
                 IconButton(
                     onClick = {
-                        uiState.isFavorite = !uiState.isFavorite
-                        isFavorite = uiState.isFavorite
+                        isFavorite = !isFavorite
 
-                        if (uiState.isFavorite) addFavoriteCoin(uiState.coin ?: return@IconButton)
-                        else deleteFavoriteCoin(uiState.coin ?: return@IconButton)
+                        if (isFavorite) addFavoriteCoin(coin)
+                        else deleteFavoriteCoin(coin)
                     },
                     modifier = Modifier
                         .size(24.dp)
@@ -97,17 +96,14 @@ fun CoinDetailAppBar(
 fun CoinDetailAppBarPreview() {
     KoinMeterTheme {
         CoinDetailAppBar(
-            uiState = UiState(
-                coin = Coin(
-                    id = "bitcoin",
-                    name = "Bitcoin",
-                    symbol = "BTC",
-                    image = "https://example.com/bitcoin.png",
-                    currentPrice = 70000.0
-                ),
-                isFavorite = true,
-                error = null
+            coin = Coin(
+                id = "bitcoin",
+                name = "Bitcoin",
+                symbol = "BTC",
+                image = "https://example.com/bitcoin.png",
+                currentPrice = 70000.0
             ),
+            isFavoriteCoin = true,
             onBackClicked = {},
             addFavoriteCoin = {},
             deleteFavoriteCoin = {}
