@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
@@ -29,12 +31,19 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun SettingsScreen(
+    onAboutIconClicked: () -> Unit,
     viewModel: SettingsViewModel = koinViewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
 
     Scaffold(
-        topBar = { CommonAppBar(stringResource(R.string.settings)) },
+        topBar = {
+            CommonAppBar(
+                title = stringResource(R.string.settings),
+                imageVector = Icons.Default.Info,
+                onIconClicked = onAboutIconClicked
+            )
+        },
         modifier = Modifier
             .fillMaxSize()
             .padding(8.dp)
@@ -95,6 +104,8 @@ fun SettingsScreen(
 @Composable
 fun SettingsScreenPreview() {
     KoinMeterTheme {
-        SettingsScreen()
+        SettingsScreen(
+            onAboutIconClicked = {}
+        )
     }
 }

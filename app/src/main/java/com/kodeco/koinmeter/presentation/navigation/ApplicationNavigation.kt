@@ -15,12 +15,16 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.kodeco.koinmeter.R
+import com.kodeco.koinmeter.presentation.components.appbars.CommonAppBar
+import com.kodeco.koinmeter.presentation.screens.about.AboutScreen
 import com.kodeco.koinmeter.presentation.screens.coindetails.CoinDetailScreen
 import com.kodeco.koinmeter.presentation.screens.favoritecoins.FavoriteCoinScreen
 import com.kodeco.koinmeter.presentation.screens.settings.SettingsScreen
@@ -109,7 +113,27 @@ fun ApplicationNavigation() {
             }
 
             composable(Screens.Settings.route) {
-                SettingsScreen()
+                SettingsScreen(
+                    onAboutIconClicked = {
+                        navController.navigate(Screens.About.route)
+                    }
+                )
+            }
+
+            composable(Screens.About.route) {
+                AboutScreen(
+                    appBar = {
+                        CommonAppBar(
+                            title = stringResource(id = R.string.about),
+                            onBackClicked = {
+                                navController.navigateUp()
+                            }
+                        )
+                    },
+                    onBackClicked = {
+                        navController.navigateUp()
+                    }
+                )
             }
         }
     }
