@@ -8,6 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.koinmeter.R
 import com.kodeco.koinmeter.presentation.components.CoinList
+import com.kodeco.koinmeter.presentation.components.EmptyBox
 import com.kodeco.koinmeter.presentation.components.Errors
 import com.kodeco.koinmeter.presentation.components.Loading
 import com.kodeco.koinmeter.presentation.components.appbars.CommonAppBar
@@ -25,6 +26,9 @@ fun FavoriteCoinScreen(
         uiState.loading -> Loading()
         uiState.error != null -> Errors(
             message = uiState.error?.message ?: stringResource(R.string.something_went_wrong)
+        )
+        uiState.isEmpty -> EmptyBox(
+            appbar = { CommonAppBar(stringResource(R.string.favorites)) }
         )
         else -> CoinList(
             coins = uiState.coinList,

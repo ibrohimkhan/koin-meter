@@ -15,6 +15,7 @@ data class UiState(
     val coinList: List<Coin> = emptyList(),
     val error: Throwable? = null,
     val loading: Boolean = true,
+    val isEmpty: Boolean = false,
 )
 
 // Intent
@@ -44,10 +45,15 @@ class FavoriteCoinViewModel(
     private suspend fun loadFavoriteCoins() {
         getFavoriteCoinsUseCase()
             .catch {
-                _uiState.value = _uiState.value.copy(error = it, loading = false)
+                _uiState.value = _uiState.value.copy(error = it, loading = false, isEmpty = false)
             }
             .collect {
-                _uiState.value = _uiState.value.copy(coinList = it, loading = false)
+                if (it.isEmpty()) {
+                    _uiState.value = _uiState.value.copy(isEmpty = true, loading = false)
+
+                } else {
+                    _uiState.value = _uiState.value.copy(coinList = it, loading = false, isEmpty = false)
+                }
             }
     }
 }
