@@ -2,6 +2,7 @@ package com.kodeco.koinmeter.mocks
 
 import com.kodeco.koinmeter.data.local.entities.CoinEntity
 import com.kodeco.koinmeter.data.local.entities.FavoriteCoinEntity
+import com.kodeco.koinmeter.data.remote.dto.CoinDto
 import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import io.mockk.every
@@ -266,3 +267,203 @@ val expectedCoinMarketChartPriceList = listOf(
         15000.0
     ),
 )
+
+val expectedCoinDtoBtc = mockk<CoinDto> {
+    every { id } returns "bitcoin"
+    every { name } returns "Bitcoin"
+    every { symbol } returns "BTC"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinDtoEth = mockk<CoinDto> {
+    every { id } returns "ethereum"
+    every { name } returns "Ethereum"
+    every { symbol } returns "ETH"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinDtoSol = mockk<CoinDto> {
+    every { id } returns "solana"
+    every { name } returns "Solana"
+    every { symbol } returns "SOL"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinBtcAdapter = mockk<Coin> {
+    every { id } returns "bitcoin"
+    every { name } returns "Bitcoin"
+    every { symbol } returns "BTC"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinEthAdapter = mockk<Coin> {
+    every { id } returns "ethereum"
+    every { name } returns "Ethereum"
+    every { symbol } returns "ETH"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinSolAdapter = mockk<Coin> {
+    every { id } returns "solana"
+    every { name } returns "Solana"
+    every { symbol } returns "SOL"
+    every { currentPrice } returns 10000.0
+    every { marketCap } returns 1000000000
+    every { marketCapRank } returns 1
+    every { fullyDilutedValuation } returns 1000000000
+    every { totalVolume } returns 100000000.0
+    every { high24h } returns 10000.0
+    every { low24h } returns 1000.0
+    every { priceChange24h } returns 100.0
+    every { priceChangePercentage24h } returns 10.0
+    every { circulatingSupply } returns 1000000.0
+    every { totalSupply } returns 1000000.0
+    every { maxSupply } returns 1000000.0
+    every { ath } returns 10000.0
+    every { athChangePercentage } returns 10.0
+    every { athDate } returns "2023-01-01"
+    every { atl } returns 1000.0
+    every { atlChangePercentage } returns 10.0
+    every { atlDate } returns "2023-01-01"
+    every { lastUpdated } returns "2023-01-01"
+    every { priceChangePercentage24hInCurrency } returns 10.0
+    every { priceChangePercentage7dInCurrency } returns 10.0
+    every { priceChangePercentage30dInCurrency } returns 10.0
+    every { priceChangePercentage200dInCurrency } returns 10.0
+    every { priceChangePercentage1yInCurrency } returns 10.0
+    every { image } returns "https://example.com/bitcoin.png"
+}
+
+val expectedCoinDtoList = listOf(
+    expectedCoinDtoBtc,
+    expectedCoinDtoEth,
+    expectedCoinDtoSol
+)
+
+val expectedCoinDtoListDomain = listOf(
+    expectedCoinBtcAdapter,
+    expectedCoinEthAdapter,
+    expectedCoinSolAdapter
+)
+
+

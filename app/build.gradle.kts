@@ -56,7 +56,9 @@ android {
         )
     }
     testOptions {
-        unitTests.isReturnDefaultValues = true
+        unitTests {
+            isReturnDefaultValues = true
+        }
     }
     buildFeatures {
         compose = true
