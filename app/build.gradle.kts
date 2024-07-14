@@ -105,6 +105,12 @@ dependencies {
     implementation(libs.splash.screen)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.koin.android.test)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
     testImplementation(libs.roomTesting)
 
     androidTestImplementation(libs.androidx.junit)

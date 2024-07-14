@@ -13,7 +13,7 @@ fonts = "1.6.8"
 navigation = "2.7.7"
 lifecycleViewmodelCompose = "2.8.3"
 kotlinx-coroutines-android = "1.8.1"
-koin-androidx-compose = "3.5.6"
+koin = "3.5.6"
 room = "2.6.1"
 datastore = "1.1.1"
 retrofit = "2.11.0"
@@ -21,6 +21,7 @@ retrofit-logging = "4.12.0"
 moshi = "1.15.1"
 coil = "2.6.0"
 splashscreen = "1.0.1"
+mockk = "1.13.11"
 
 
 [libraries]
@@ -62,9 +63,13 @@ androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
 
 # Kotlin Coroutines for Android
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinx-coroutines-android" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines-android" }
 
 # Koin for Android Compose
-koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin-androidx-compose" }
+koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-test = { module = "io.insert-koin:koin-test", version.ref = "koin" }
+koin-test-junit4 = { module = "io.insert-koin:koin-test-junit4", version.ref = "koin" }
+koin-android-test = { module = "io.insert-koin:koin-android-test", version.ref = "koin" }
 
 # Room
 room = { module = "androidx.room:room-runtime", version.ref = "room" }
@@ -92,6 +97,10 @@ splash-screen = { module = "androidx.core:core-splashscreen", version.ref = "spl
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+
+# Mockk
+mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+mockk-agent = { module = "io.mockk:mockk-agent", version.ref = "mockk" }
 
 # UI Tests
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
