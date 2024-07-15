@@ -34,3 +34,22 @@ This is a lightweight, fast and personal cryptocurrencies monitor powered by [**
 <img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/3.jpg" width="23%" />
 <img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/4.jpg" width="23%" />
 </p>
+
+
+## Technical Details
+
+- *Jetpack Compose UI*
+- *Material Design 3*
+- *Koin for DI*
+- *Clean Architecture*
+  - ***data*** - contains remote, local and prefrences DataSources, Repositories implementation, Room's entities for persistence and data adapters
+  - ***domain*** - contains UseCases, models and Repositories interfaces
+  - ***presentation*** - contains screens, composable components, navigation, ui states and ViewModels. *MVI* pattern is used to manage state and display data in UI
+- *Unit Testing* of the logic with *MockK* and *Koin-Test*
+
+
+### Upcoming Features:
+
+- **Search coin**
+- **Trending coins**
+
