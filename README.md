@@ -1,6 +1,6 @@
 <div align="center">
 
-<p><img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/gecko.png" width="200"></p>
+<p><img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/gecko.png" width="200" /></p>
 
 # KoinMeter
 
@@ -26,4 +26,11 @@ This is a lightweight, fast and personal cryptocurrencies monitor powered by [**
 - **Settings:** choose your price change percentage period
 - **Offline:** look at your favorite coins even when you are disconnected
 
+<br>
 
+<p float="left">
+<img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/1.jpg" width="23%" />
+<img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/2.jpg" width="23%" />
+<img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/3.jpg" width="23%" />
+<img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/4.jpg" width="23%" />
+</p>
