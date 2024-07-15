@@ -16,7 +16,7 @@
 
 ---
 
-This is a lightweight, fast and personal cryptocurrencies monitor for Android devices 📱📈 No Ads, no trackers and just koins 💎
+This is a lightweight, fast and personal cryptocurrencies monitor powered by [**CoinGecko Public API**](https://docs.coingecko.com/v3.0.1/reference/introduction) for Android devices
 
 ## Features
 
