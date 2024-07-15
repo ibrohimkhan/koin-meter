@@ -1,6 +1,6 @@
 <div align="center">
 
-<p><img src="https://github.com/ibrohimkhan/koin-meter/tree/main/metadata/en-US/images/gecko.webp" width="200"></p>
+<p><img src="https://github.com/ibrohimkhan/koin-meter/tree/main/metadata/en-US/images/gecko.png" width="200"></p>
 # KoinMeter
 
 ### Open Source cryptocurrency monitor
