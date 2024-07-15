@@ -2,12 +2,14 @@ package com.kodeco.koinmeter.mocks
 
 import com.kodeco.koinmeter.data.local.entities.CoinEntity
 import com.kodeco.koinmeter.data.local.entities.FavoriteCoinEntity
+import com.kodeco.koinmeter.data.remote.dto.CoinChartDto
 import com.kodeco.koinmeter.data.remote.dto.CoinDto
 import com.kodeco.koinmeter.domain.model.Coin
 import com.kodeco.koinmeter.domain.model.CoinMarketChartPrice
 import io.mockk.every
 import io.mockk.mockk
 import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 val expectedCoinBtc = mockk<Coin> {
     every { id } returns "bitcoin"
@@ -466,4 +468,25 @@ val expectedCoinDtoListDomain = listOf(
     expectedCoinSolAdapter
 )
 
+val coinMarketChartDto = mockk<CoinChartDto> {
+    val date = LocalDateTime.of(2024, 1, 1, 0, 0, 0)
+        .toEpochSecond(ZoneOffset.UTC) * 1000.0
 
+    every { prices } returns listOf(
+        listOf(date, 1000.0),
+    )
+}
+
+val expectedCoinMarketChartPriceBtc = CoinMarketChartPrice(
+    LocalDateTime.of(2024, 1, 1, 0, 0, 0),
+    1000.0
+)
+
+val coinMarketChartDtoExpected = CoinChartDto(
+    prices = listOf(
+        listOf(
+            LocalDateTime.of(2024, 1, 1, 0, 0, 0).toEpochSecond(ZoneOffset.UTC) * 1000.0,
+            1000.0
+        ),
+    )
+)
