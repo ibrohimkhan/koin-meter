@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <style name="Theme.KoinMeter" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.SplashScreen.KoinSplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#FF5C5891</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/gecko</item>
+        <item name="windowSplashScreenAnimationDuration">3000</item>
+        <item name="postSplashScreenTheme">@style/Theme.KoinMeter</item>
+    </style>
 </resources>

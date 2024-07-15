@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
     id("com.google.devtools.ksp")
+    id("kotlin-parcelize")
 }
 
 android {
@@ -22,6 +23,8 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "BASE_URL", "\"https://api.coingecko.com/api/v3/\"")
 
         // load the key from .properties file
         val keystoreFile = project.rootProject.file("apikey.properties")
@@ -47,6 +50,15 @@ android {
     }
     kotlinOptions {
         jvmTarget = "17"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=androidx.compose.material3.ExperimentalMaterial3Api",
+            "-opt-in=androidx.compose.material.ExperimentalMaterialApi",
+        )
+    }
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
     }
     buildFeatures {
         compose = true
@@ -72,12 +84,21 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.material)
+    implementation(libs.material.icons)
+    implementation(libs.material.icons.extended)
     implementation(libs.fonts)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.material3.window.size)
 
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.koin.androidx.compose)
+
+    implementation(libs.room)
+    ksp(libs.roomCompiler)
+    implementation(libs.roomKtx)
+
+    implementation(libs.datastore.preferences)
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.moshi)
@@ -86,9 +107,17 @@ dependencies {
     ksp(libs.moshiCodeGen)
 
     implementation(libs.coil)
-    implementation(libs.lottie.compose)
+    implementation(libs.splash.screen)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.koin.test)
+    testImplementation(libs.koin.test.junit4)
+    testImplementation(libs.koin.android.test)
+    testImplementation(libs.mockk.android)
+    testImplementation(libs.mockk.agent)
+    testImplementation(libs.roomTesting)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
