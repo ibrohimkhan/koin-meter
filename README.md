@@ -8,6 +8,7 @@
 
 [![Android](https://img.shields.io/badge/Android-grey?logo=android&style=flat)](https://www.android.com/)
 [![AndroidAPI](https://img.shields.io/badge/API-28%2B-brightgreen.svg?style=flat)](https://www.android.com/)
+[![Kotlin](https://img.shields.io/badge/coingecko-api:3.0.1-green.svg?logo=coingecko)](https://docs.coingecko.com/v3.0.1/reference/introduction)
 [![Kotlin](https://img.shields.io/badge/kotlin-2.0.0-blue.svg?logo=kotlin)](https://kotlinlang.org)
 [![Koin](https://img.shields.io/badge/koin-3.5.6-red.svg?logo=koin)](https://insert-koin.io)
 [![JetpackCompose](https://img.shields.io/badge/Jetpack%20Compose-bom:2024.06.00-yellow)](https://developer.android.com/jetpack/compose)
