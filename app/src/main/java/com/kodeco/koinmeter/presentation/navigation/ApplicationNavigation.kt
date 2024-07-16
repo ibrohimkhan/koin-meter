@@ -11,15 +11,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.kodeco.koinmeter.R
@@ -35,16 +32,19 @@ const val COIN_ID_KEY = "coin_id_key"
 
 @Composable
 fun ApplicationNavigation() {
-    var navigationSelectedItem by rememberSaveable { mutableIntStateOf(0) }
     val navController = rememberNavController()
+
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = navBackStackEntry?.destination?.route
 
     Scaffold(
         bottomBar = {
-            NavigationBar {
-                BottomNavigationItem().bottomNavigationItems()
-                    .forEachIndexed { index, navigationItem ->
+            if (BottomNavigationItem().bottomNavigationItems().map { it.route }
+                    .contains(currentRoute)) {
+                NavigationBar {
+                    BottomNavigationItem().bottomNavigationItems().forEach { navigationItem ->
                         NavigationBarItem(
-                            selected = navigationSelectedItem == index,
+                            selected = currentRoute == navigationItem.route,
                             label = { Text(navigationItem.label) },
                             icon = {
                                 Icon(
@@ -53,18 +53,16 @@ fun ApplicationNavigation() {
                                 )
                             },
                             onClick = {
-                                navigationSelectedItem = index
-                                navController.navigate(navigationItem.route) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                        inclusive = true
+                                if (currentRoute != navigationItem.route) {
+                                    navController.navigate(navigationItem.route) {
+                                        popUpTo(navController.graph.startDestinationId)
+                                        launchSingleTop = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
                             }
                         )
                     }
+                }
             }
         },
         modifier = Modifier.fillMaxSize(),
