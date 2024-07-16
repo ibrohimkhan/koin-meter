@@ -35,6 +35,7 @@ This is a lightweight, fast and personal cryptocurrencies monitor powered by [**
 <img src="https://github.com/ibrohimkhan/koin-meter/blob/main/metadata/en-US/images/screenshots/4.jpg" width="23%" />
 </p>
 
+<br/>
 
 ## Technical Details
 
@@ -44,15 +45,23 @@ This is a lightweight, fast and personal cryptocurrencies monitor powered by [**
 - *Clean Architecture*
   - ***data*** - contains remote, local and prefrences DataSources, Repositories implementation, Room's entities for persistence and data adapters
   - ***domain*** - contains UseCases, models and Repositories interfaces
-  - ***presentation*** - contains screens, composable components, navigation, ui states and ViewModels. *MVI* pattern is used to manage state and display data in UI
-- *Unit Testing* of the logic with *MockK* and *Koin-Test*
+  - ***presentation*** - contains screens, composable components, navigation, ui states and ViewModels. *MVI* pattern is used to provide *unidirectional data flow*
+- *Unit Testing* of the logic with *JUnit*, *MockK* and *Koin-Test*
 
 
-### Upcoming Features:
+#### Instructions how to run it in your machine:
+
+- Set up your [CoinGecko API Key](https://docs.coingecko.com/v3.0.1/reference/setting-up-your-api-key)
+- Create `apikey.properties` file in the root folder of the project
+- Copy you `API Key` into the file, build & run project
+
+
+#### Upcoming Features:
 
 - **Search coin**
 - **Trending coins**
 
+<br/>
 
 ## License
 
