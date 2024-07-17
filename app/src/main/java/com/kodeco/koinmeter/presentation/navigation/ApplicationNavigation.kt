@@ -36,13 +36,13 @@ fun ApplicationNavigation() {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val bottomNavigationItems = BottomNavigationItem().bottomNavigationItems()
 
     Scaffold(
         bottomBar = {
-            if (BottomNavigationItem().bottomNavigationItems().map { it.route }
-                    .contains(currentRoute)) {
+            if (bottomNavigationItems.map { it.route }.contains(currentRoute)) {
                 NavigationBar {
-                    BottomNavigationItem().bottomNavigationItems().forEach { navigationItem ->
+                    bottomNavigationItems.forEach { navigationItem ->
                         NavigationBarItem(
                             selected = currentRoute == navigationItem.route,
                             label = { Text(navigationItem.label) },
@@ -68,8 +68,8 @@ fun ApplicationNavigation() {
                 }
             }
         },
-        modifier = Modifier.fillMaxSize(),
-
+        modifier = Modifier
+            .fillMaxSize(),
         ) { innerPadding ->
 
         NavHost(
