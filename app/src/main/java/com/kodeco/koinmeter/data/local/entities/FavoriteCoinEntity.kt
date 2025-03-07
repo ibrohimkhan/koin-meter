@@ -29,7 +29,7 @@ data class FavoriteCoinEntity(
     val marketCapRank: Int?,
 
     @ColumnInfo(name = "fully_diluted_valuation")
-    val fullyDilutedValuation: Long?,
+    val fullyDilutedValuation: Double?,
 
     @ColumnInfo(name = "total_volume")
     val totalVolume: Double?,

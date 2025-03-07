@@ -10,7 +10,7 @@ plugins {
 
 android {
     namespace = "com.kodeco.koinmeter"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.kodeco.koinmeter"

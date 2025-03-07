@@ -18,7 +18,7 @@ data class CoinDto(
     val marketCapRank: Int? = null,
 
     @Json(name = "fully_diluted_valuation")
-    val fullyDilutedValuation: Long? = null,
+    val fullyDilutedValuation: Double? = null,
 
     @Json(name = "total_volume")
     val totalVolume: Double? = null,

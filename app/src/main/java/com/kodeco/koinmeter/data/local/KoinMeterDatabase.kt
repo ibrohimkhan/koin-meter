@@ -12,7 +12,7 @@ import com.kodeco.koinmeter.data.local.entities.FavoriteCoinEntity
 import com.kodeco.koinmeter.data.local.typeconverter.KoinTypeConverters
 
 
-const val DATABASE_VERSION = 1
+const val DATABASE_VERSION = 2
 
 @Database(
     entities = [CoinEntity::class, CoinMarketChartEntity::class, FavoriteCoinEntity::class],
